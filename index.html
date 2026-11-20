@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+  <title>Nile International Hospital - Purchase Requisition Form</title>
   <style>
     :root {
       --primary-teal: #006666;
@@ -16,30 +16,35 @@
       font-family: Arial, Helvetica, sans-serif;
     }
 
+    @page {
+      size: A4 portrait;
+      margin: 8mm;
+    }
+
     body {
       background-color: #e9ecef;
       margin: 0;
-      padding: 20px;
+      padding: 14px;
       color: #000;
     }
 
     /* Action Bar (Hidden when printing) */
     .controls {
       max-width: 210mm;
-      margin: 0 auto 15px auto;
+      margin: 0 auto 10px auto;
       display: flex;
-      gap: 10px;
+      gap: 8px;
       justify-content: flex-end;
       flex-wrap: wrap;
     }
 
     .btn {
-      padding: 10px 16px;
+      padding: 8px 14px;
       border: none;
       border-radius: 5px;
       cursor: pointer;
       font-weight: bold;
-      font-size: 14px;
+      font-size: 13px;
     }
 
     .btn-primary {
@@ -55,17 +60,17 @@
     .btn-danger {
       background-color: #dc3545;
       color: white;
-      padding: 4px 8px;
-      font-size: 12px;
+      padding: 2px 7px;
+      font-size: 11px;
     }
 
-    /* A4 Page Container */
+    /* Single A4 Page Container */
     .page {
       width: 210mm;
       min-height: 297mm;
       margin: 0 auto;
       background: white;
-      padding: 15mm;
+      padding: 10mm 12mm;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
       position: relative;
       display: flex;
@@ -87,17 +92,17 @@
     }
 
     .watermark h1 {
-      font-size: 95px;
+      font-size: 80px;
       margin: 0;
-      letter-spacing: 8px;
+      letter-spacing: 6px;
       color: var(--primary-teal);
     }
 
     .watermark p {
-      font-size: 24px;
-      margin: 5px 0;
+      font-size: 20px;
+      margin: 4px 0;
       font-weight: bold;
-      letter-spacing: 3px;
+      letter-spacing: 2px;
     }
 
     .content-wrapper {
@@ -108,63 +113,40 @@
     /* Header */
     .header {
       text-align: center;
-      margin-bottom: 15px;
+      margin-bottom: 8px;
     }
 
     .logo-placeholder {
-      max-height: 75px;
-      margin-bottom: 5px;
-    }
-
-    .hospital-title {
-      color: var(--primary-teal);
-      font-size: 26px;
-      font-weight: 900;
-      margin: 0;
-      letter-spacing: 1px;
-    }
-
-    .hospital-sub {
-      font-size: 13px;
-      font-weight: bold;
-      letter-spacing: 2px;
-      margin: 2px 0;
-    }
-
-    .hospital-tagline {
-      color: var(--primary-teal);
-      font-family: Georgia, serif;
-      font-style: italic;
-      font-size: 13px;
-      margin: 0 0 12px 0;
+      max-height: 54px;
+      margin-bottom: 3px;
     }
 
     .form-title {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: bold;
-      letter-spacing: 1px;
-      margin: 5px 0;
+      letter-spacing: 0.8px;
+      margin: 2px 0;
       text-transform: uppercase;
     }
 
     .instructions-sub {
-      font-size: 9.5px;
-      line-height: 1.3;
-      max-width: 85%;
-      margin: 0 auto 12px auto;
+      font-size: 8.5px;
+      line-height: 1.25;
+      max-width: 92%;
+      margin: 0 auto 6px auto;
     }
 
     /* Tables */
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-bottom: 12px;
-      font-size: 11px;
+      margin-bottom: 7px;
+      font-size: 10px;
     }
 
     th, td {
       border: 1px solid var(--border-color);
-      padding: 6px 8px;
+      padding: 4px 6px;
       vertical-align: top;
     }
 
@@ -172,9 +154,10 @@
       background-color: var(--header-bg);
       text-align: left;
       font-weight: bold;
+      font-size: 9.5px;
     }
 
-    .info-grid td {
+    .info-grid > tbody > tr > td {
       width: 50%;
       padding: 0;
     }
@@ -186,29 +169,52 @@
 
     .nested-table td {
       border: none;
-      padding: 5px 8px;
+      padding: 2.5px 6px;
       vertical-align: middle;
     }
 
     .label-col {
-      width: 42%;
-      font-size: 9.5px;
+      width: 38%;
+      font-size: 8.5px;
       font-weight: bold;
       text-transform: uppercase;
       color: #222;
     }
 
+    .vendor-block {
+      border-bottom: 1px dashed #999;
+      padding: 3px 0;
+    }
+
+    .vendor-block:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .vendor-title {
+      font-size: 8.5px;
+      font-weight: bold;
+      color: var(--primary-teal);
+      text-transform: uppercase;
+      margin: 0 6px 2px 6px;
+    }
+
     /* Form Inputs */
     input[type="text"],
     input[type="number"],
-    input[type="date"],
     textarea {
       width: 100%;
-      border: 1px dashed #aaa;
-      background: rgba(255, 255, 255, 0.7);
-      padding: 3px 5px;
-      font-size: 11px;
+      border: 1px dashed #b5b5b5;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 2px 4px;
+      font-size: 10px;
       color: #000;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: #888;
+      font-size: 9px;
     }
 
     input:focus, textarea:focus {
@@ -218,8 +224,9 @@
     }
 
     .items-table th {
-      font-size: 10px;
+      font-size: 9px;
       text-transform: uppercase;
+      padding: 4px 6px;
     }
 
     .num-col {
@@ -228,17 +235,19 @@
 
     .total-row td {
       font-weight: bold;
-      font-size: 11.5px;
+      font-size: 10.5px;
       background-color: #fafafa;
+      padding: 4px 6px;
     }
 
     .special-box textarea {
-      min-height: 65px;
+      min-height: 36px;
+      height: 36px;
       resize: vertical;
     }
 
     .approval-box {
-      height: 75px;
+      height: 46px;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
@@ -248,23 +257,24 @@
       display: flex;
       justify-content: space-between;
       border-top: 1px solid #333;
-      padding-top: 3px;
-      font-size: 9.5px;
-      margin-top: 35px;
+      padding-top: 2px;
+      font-size: 8.5px;
+      margin-top: 22px;
     }
 
     .footer-note {
       text-align: right;
-      font-size: 9.5px;
+      font-size: 8.5px;
       color: #333;
-      margin-top: 20px;
+      margin-top: 6px;
     }
 
-    /* Print Styling */
+    /* Single-Page Print Styling */
     @media print {
       body {
         background: none;
         padding: 0;
+        margin: 0;
       }
       .controls, .no-print {
         display: none !important;
@@ -273,21 +283,40 @@
         box-shadow: none;
         margin: 0;
         width: 100%;
-        min-height: 280mm;
-        padding: 10mm;
+        min-height: auto;
+        height: auto;
+        padding: 4mm 6mm;
+        page-break-after: avoid;
+        break-after: avoid;
+      }
+      table, tr, td, th {
+        page-break-inside: avoid;
+        break-inside: avoid;
       }
       input[type="text"],
       input[type="number"],
-      input[type="date"],
       textarea {
         border: none !important;
         background: transparent !important;
-        padding: 0;
+        padding: 0 2px;
         resize: none;
       }
-      /* Hide date picker icon on print */
-      input[type="date"]::-webkit-calendar-picker-indicator {
-        display: none;
+      input::placeholder,
+      textarea::placeholder {
+        color: transparent !important;
+      }
+      .special-box textarea {
+        height: 28px;
+        min-height: 28px;
+      }
+      .approval-box {
+        height: 38px;
+      }
+      .sig-line {
+        margin-top: 16px;
+      }
+      .footer-note {
+        margin-top: 4px;
       }
     }
   </style>
@@ -297,7 +326,7 @@
   <div class="controls">
     <button class="btn btn-secondary" onclick="addRow()">+ Add Item Row</button>
     <button class="btn btn-secondary" onclick="resetForm()">Reset Form</button>
-    <button class="btn btn-primary" onclick="window.print()">Print / Save as PDF</button>
+    <button class="btn btn-primary" onclick="triggerPrint()">Print / Save as PDF</button>
   </div>
 
   <div class="page">
@@ -311,9 +340,7 @@
     <div class="content-wrapper">
       <!-- Header -->
       <div class="header">
-        <!-- Replace src with your actual hospital logo file if desired -->
         <img src="logo.png" alt="" class="logo-placeholder" onerror="this.style.display='none'">
-     
         <div class="form-title">Purchase Requisition Form</div>
         <div class="instructions-sub">
           Forward the completed and approved form to the Purchasing Department/Approval workflow system.<br>
@@ -323,56 +350,99 @@
 
       <!-- Top Info Grid -->
       <table class="info-grid">
-        <tr>
-          <th>Requisitioner Info:</th>
-          <th>Recommended Vendor Info:</th>
-        </tr>
-        <tr>
-          <td>
-            <table class="nested-table">
-              <tr>
-                <td class="label-col">Requisition Number</td>
-                <td><input type="text" id="reqNumber" oninput="syncFooterReq()" /></td>
-              </tr>
-              <tr>
-                <td class="label-col">Date</td>
-                <td><input type="date" id="reqDate" /></td>
-              </tr>
-              <tr>
-                <td class="label-col">Name</td>
-                <td><input type="text" placeholder="Enter your full name" /></td>
-              </tr>
-              <tr>
-                <td class="label-col">Department</td>
-                <td><input type="text" placeholder="e.g. Biomedical Engineering" /></td>
-              </tr>
-              <tr>
-                <td class="label-col">Phone / Email</td>
-                <td><input type="text" placeholder="Phone number or email" /></td>
-              </tr>
-              <tr>
-                <td class="label-col">Delivery Department</td>
-                <td><input type="text" placeholder="Destination department" /></td>
-              </tr>
-            </table>
-          </td>
-          <td>
-            <table class="nested-table">
-              <tr>
-                <td class="label-col">Name</td>
-                <td><input type="text" placeholder="Vendor / Supplier name" /></td>
-              </tr>
-              <tr>
-                <td class="label-col">Address</td>
-                <td><input type="text" placeholder="Vendor address / location" /></td>
-              </tr>
-              <tr>
-                <td class="label-col">Phone</td>
-                <td><input type="text" placeholder="Vendor phone contact" /></td>
-              </tr>
-            </table>
-          </td>
-        </tr>
+        <thead>
+          <tr>
+            <th>Requisitioner Info:</th>
+            <th>Recommended Vendor Info (Up to 3 Options):</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <table class="nested-table">
+                <tr>
+                  <td class="label-col">Requisition Number</td>
+                  <td><input type="text" id="reqNumber" oninput="syncFooterReq()" /></td>
+                </tr>
+                <tr>
+                  <td class="label-col">Date</td>
+                  <td><input type="text" id="reqDate" placeholder="DD/MM/YYYY" oninput="onDateChange()" /></td>
+                </tr>
+                <tr>
+                  <td class="label-col">Name</td>
+                  <td><input type="text" placeholder="Enter your full name" /></td>
+                </tr>
+                <tr>
+                  <td class="label-col">Department</td>
+                  <td><input type="text" placeholder="e.g. Biomedical Engineering" /></td>
+                </tr>
+                <tr>
+                  <td class="label-col">Phone / Email</td>
+                  <td><input type="text" placeholder="Phone number or email" /></td>
+                </tr>
+                <tr>
+                  <td class="label-col">Delivery Department</td>
+                  <td><input type="text" placeholder="Destination department" /></td>
+                </tr>
+              </table>
+            </td>
+            <td>
+              <div class="vendor-block">
+                <div class="vendor-title">Vendor 1</div>
+                <table class="nested-table">
+                  <tr>
+                    <td class="label-col">Name</td>
+                    <td><input type="text" placeholder="First vendor name" /></td>
+                  </tr>
+                  <tr>
+                    <td class="label-col">Address</td>
+                    <td><input type="text" placeholder="First vendor address" /></td>
+                  </tr>
+                  <tr>
+                    <td class="label-col">Phone</td>
+                    <td><input type="text" placeholder="First vendor phone" /></td>
+                  </tr>
+                </table>
+              </div>
+
+              <div class="vendor-block">
+                <div class="vendor-title">Vendor 2</div>
+                <table class="nested-table">
+                  <tr>
+                    <td class="label-col">Name</td>
+                    <td><input type="text" placeholder="Second vendor name" /></td>
+                  </tr>
+                  <tr>
+                    <td class="label-col">Address</td>
+                    <td><input type="text" placeholder="Second vendor address" /></td>
+                  </tr>
+                  <tr>
+                    <td class="label-col">Phone</td>
+                    <td><input type="text" placeholder="Second vendor phone" /></td>
+                  </tr>
+                </table>
+              </div>
+
+              <div class="vendor-block">
+                <div class="vendor-title">Vendor 3</div>
+                <table class="nested-table">
+                  <tr>
+                    <td class="label-col">Name</td>
+                    <td><input type="text" placeholder="Third vendor name" /></td>
+                  </tr>
+                  <tr>
+                    <td class="label-col">Address</td>
+                    <td><input type="text" placeholder="Third vendor address" /></td>
+                  </tr>
+                  <tr>
+                    <td class="label-col">Phone</td>
+                    <td><input type="text" placeholder="Third vendor phone" /></td>
+                  </tr>
+                </table>
+              </div>
+            </td>
+          </tr>
+        </tbody>
       </table>
 
       <!-- Items Table -->
@@ -384,7 +454,7 @@
             <th style="width: 35%;">Description</th>
             <th style="width: 15%;" class="num-col">Unit Price</th>
             <th style="width: 17%;" class="num-col">Total</th>
-            <th class="no-print" style="width: 40px;"></th>
+            <th class="no-print" style="width: 34px;"></th>
           </tr>
         </thead>
         <tbody id="itemsBody">
@@ -408,40 +478,48 @@
 
       <!-- Special Instructions -->
       <table>
-        <tr>
-          <th>SPECIAL INSTRUCTIONS</th>
-        </tr>
-        <tr>
-          <td class="special-box">
-            <textarea placeholder="Enter any urgency notes, justification, or delivery instructions..."></textarea>
-          </td>
-        </tr>
+        <thead>
+          <tr>
+            <th>SPECIAL INSTRUCTIONS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="special-box">
+              <textarea placeholder="Enter urgency notes, justification, or delivery instructions..."></textarea>
+            </td>
+          </tr>
+        </tbody>
       </table>
 
       <!-- Approval Signatures -->
       <table class="info-grid">
-        <tr>
-          <th>Department Approval:</th>
-          <th>Director's Approval:</th>
-        </tr>
-        <tr>
-          <td>
-            <div class="approval-box">
-              <div class="sig-line">
-                <span>Signature</span>
-                <span style="margin-right: 45px;">Date</span>
+        <thead>
+          <tr>
+            <th>Department Approval:</th>
+            <th>Director's Approval:</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="approval-box">
+                <div class="sig-line">
+                  <span>Signature</span>
+                  <span style="margin-right: 45px;">Date</span>
+                </div>
               </div>
-            </div>
-          </td>
-          <td>
-            <div class="approval-box">
-              <div class="sig-line">
-                <span>Signature</span>
-                <span style="margin-right: 45px;">Date</span>
+            </td>
+            <td>
+              <div class="approval-box">
+                <div class="sig-line">
+                  <span>Signature</span>
+                  <span style="margin-right: 45px;">Date</span>
+                </div>
               </div>
-            </div>
-          </td>
-        </tr>
+            </td>
+          </tr>
+        </tbody>
       </table>
     </div>
 
@@ -451,13 +529,34 @@
   </div>
 
   <script>
-    function generateReqNumber() {
+    let randomSuffix = Math.floor(1000 + Math.random() * 9000);
+    let savedValuesMap = new Map();
+
+    function getTodayFormatted() {
       const now = new Date();
-      const yyyy = now.getFullYear();
-      const mm = String(now.getMonth() + 1).padStart(2, '0');
       const dd = String(now.getDate()).padStart(2, '0');
-      const rand = Math.floor(1000 + Math.random() * 9000);
-      return `NIH-REQ-${yyyy}${mm}${dd}-${rand}`;
+      const mm = String(now.getMonth() + 1).padStart(2, '0');
+      const yyyy = now.getFullYear();
+      return `${dd}/${mm}/${yyyy}`;
+    }
+
+    function buildReqNumberFromDate(dateStr) {
+      const parts = dateStr.split('/');
+      if (parts.length === 3 && parts[2].length === 4) {
+        const [dd, mm, yyyy] = parts;
+        return `NIH-REQ-${yyyy}${mm}${dd}-${randomSuffix}`;
+      }
+      const now = new Date();
+      const dd = String(now.getDate()).padStart(2, '0');
+      const mm = String(now.getMonth() + 1).padStart(2, '0');
+      const yyyy = now.getFullYear();
+      return `NIH-REQ-${yyyy}${mm}${dd}-${randomSuffix}`;
+    }
+
+    function onDateChange() {
+      const dateVal = document.getElementById('reqDate').value.trim();
+      document.getElementById('reqNumber').value = buildReqNumberFromDate(dateVal);
+      syncFooterReq();
     }
 
     function syncFooterReq() {
@@ -514,18 +613,54 @@
       }
       tbody.querySelector('.qty').value = 1;
       tbody.querySelector('.price').value = '';
+      randomSuffix = Math.floor(1000 + Math.random() * 9000);
       initForm();
     }
 
+    function prepareForPrint() {
+      savedValuesMap.clear();
+      const fields = document.querySelectorAll('.page input[type="text"], .page input[type="number"], .page textarea');
+      fields.forEach((field, idx) => {
+        savedValuesMap.set(idx, field.value);
+        // Hide default qty=1 if unit price wasn't entered so blank rows don't show stray "1"
+        if (field.classList.contains('qty')) {
+          const row = field.closest('tr');
+          const priceVal = row ? parseFloat(row.querySelector('.price')?.value) : NaN;
+          if (!priceVal && field.value === '1') {
+            field.value = '';
+          }
+        }
+      });
+    }
+
+    function restoreAfterPrint() {
+      const fields = document.querySelectorAll('.page input[type="text"], .page input[type="number"], .page textarea');
+      fields.forEach((field, idx) => {
+        if (savedValuesMap.has(idx)) {
+          field.value = savedValuesMap.get(idx);
+        }
+      });
+      calculateTotals();
+    }
+
+    function triggerPrint() {
+      prepareForPrint();
+      window.print();
+      setTimeout(restoreAfterPrint, 500);
+    }
+
+    window.addEventListener('beforeprint', prepareForPrint);
+    window.addEventListener('afterprint', restoreAfterPrint);
+
     function initForm() {
-      const today = new Date().toISOString().split('T')[0];
-      document.getElementById('reqDate').value = today;
-      document.getElementById('reqNumber').value = generateReqNumber();
+      const todayStr = getTodayFormatted();
+      document.getElementById('reqDate').value = todayStr;
+      document.getElementById('reqNumber').value = buildReqNumberFromDate(todayStr);
       syncFooterReq();
       calculateTotals();
     }
 
-    window.onload = initForm;
+    document.addEventListener('DOMContentLoaded', initForm);
   </script>
 </body>
 </html>
