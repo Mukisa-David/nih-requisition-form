@@ -39,7 +39,7 @@
     }
 
     .btn {
-      padding: 8px 14px;
+      padding: 8px 13px;
       border: none;
       border-radius: 5px;
       cursor: pointer;
@@ -54,6 +54,11 @@
 
     .btn-primary {
       background-color: var(--primary-teal);
+      color: white;
+    }
+
+    .btn-whatsapp {
+      background-color: #128c7e;
       color: white;
     }
 
@@ -92,7 +97,7 @@
       min-height: 297mm;
       margin: 0 auto;
       background: white;
-      padding: 7mm 10mm;
+      padding: 8mm 11mm;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
       position: relative;
       display: flex;
@@ -157,19 +162,19 @@
     /* Header */
     .header {
       text-align: center;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
 
     .logo-placeholder {
-      max-height: 82px;
-      max-width: 280px;
+      max-height: 84px;
+      max-width: 290px;
       width: auto;
-      margin: 0 auto 3px auto;
+      margin: 0 auto 4px auto;
       display: block;
     }
 
     .form-title {
-      font-size: 15px;
+      font-size: 15.5px;
       font-weight: 800;
       letter-spacing: 0.8px;
       margin: 2px 0;
@@ -179,9 +184,9 @@
 
     .instructions-sub {
       font-size: 9px;
-      line-height: 1.22;
+      line-height: 1.25;
       max-width: 95%;
-      margin: 0 auto 5px auto;
+      margin: 0 auto 6px auto;
       color: #111;
     }
 
@@ -189,13 +194,13 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
       font-size: 10.5px;
     }
 
     th, td {
       border: 1px solid var(--border-color);
-      padding: 3.5px 6px;
+      padding: 4px 6px;
       vertical-align: top;
     }
 
@@ -214,46 +219,30 @@
 
     .nested-table td {
       border: none;
-      padding: 2px 6px;
+      padding: 2.5px 6px;
       vertical-align: middle;
     }
 
     .label-col {
-      width: 28%;
+      width: 30%;
       font-size: 9px;
       font-weight: bold;
       text-transform: uppercase;
       color: #111;
     }
 
-    /* 3-Column Vendor Row (Stacked below Requisitioner Info) */
-    .vendors-grid > tbody > tr > td {
-      width: 33.33%;
-      padding: 4px 6px;
+    .two-col-grid > tbody > tr > td {
+      width: 50%;
     }
 
     @media screen and (max-width: 720px) {
-      .vendors-grid > tbody > tr {
+      .two-col-grid > tbody > tr {
         display: flex;
         flex-direction: column;
       }
-      .vendors-grid > tbody > tr > td {
+      .two-col-grid > tbody > tr > td {
         width: 100%;
       }
-    }
-
-    .vendor-label {
-      width: 26%;
-      font-size: 8.8px;
-      font-weight: bold;
-      text-transform: uppercase;
-      color: #111;
-    }
-
-    .vendor-subtable td {
-      border: none;
-      padding: 1.5px 3px;
-      vertical-align: middle;
     }
 
     /* Form Inputs */
@@ -263,7 +252,7 @@
       width: 100%;
       border: 1px dashed #9e9e9e;
       background: rgba(255, 255, 255, 0.92);
-      padding: 2px 4px;
+      padding: 2.5px 5px;
       font-size: 10.5px;
       font-weight: 500;
       color: #000;
@@ -285,7 +274,7 @@
     .items-table th {
       font-size: 9.5px;
       text-transform: uppercase;
-      padding: 3.5px 6px;
+      padding: 4px 6px;
     }
 
     .num-col {
@@ -296,33 +285,19 @@
       font-weight: bold;
       font-size: 11px;
       background-color: #f4f7f8;
-      padding: 3.5px 6px;
+      padding: 4px 6px;
       color: #000;
     }
 
     .special-box textarea {
-      min-height: 28px;
-      height: 28px;
+      min-height: 36px;
+      height: 36px;
       resize: none;
       overflow-y: hidden;
     }
 
-    .approval-grid > tbody > tr > td {
-      width: 50%;
-    }
-
-    @media screen and (max-width: 720px) {
-      .approval-grid > tbody > tr {
-        display: flex;
-        flex-direction: column;
-      }
-      .approval-grid > tbody > tr > td {
-        width: 100%;
-      }
-    }
-
     .approval-box {
-      height: 38px;
+      height: 46px;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
@@ -335,7 +310,7 @@
       padding-top: 2px;
       font-size: 9px;
       font-weight: 600;
-      margin-top: 16px;
+      margin-top: 20px;
     }
 
     .footer-note {
@@ -343,7 +318,7 @@
       font-size: 9px;
       font-weight: 600;
       color: #222;
-      margin-top: 4px;
+      margin-top: 6px;
     }
 
     /* Single-Page Print Styling */
@@ -361,14 +336,10 @@
         width: 100%;
         overflow: visible;
       }
-      .vendors-grid > tbody > tr,
-      .approval-grid > tbody > tr {
+      .two-col-grid > tbody > tr {
         display: table-row;
       }
-      .vendors-grid > tbody > tr > td {
-        width: 33.33%;
-      }
-      .approval-grid > tbody > tr > td {
+      .two-col-grid > tbody > tr > td {
         width: 50%;
       }
       .page {
@@ -378,7 +349,7 @@
         min-width: 100%;
         min-height: auto;
         height: auto;
-        padding: 3mm 5mm;
+        padding: 4mm 6mm;
         page-break-after: avoid;
         break-after: avoid;
       }
@@ -387,23 +358,23 @@
         break-inside: avoid;
       }
       .logo-placeholder {
-        max-height: 74px;
+        max-height: 76px;
       }
       .form-title {
-        font-size: 14.5px;
+        font-size: 15px;
       }
       .instructions-sub {
-        font-size: 8.8px;
+        font-size: 9px;
       }
       table {
         font-size: 10.5px;
-        margin-bottom: 5px;
+        margin-bottom: 6px;
       }
       th {
         font-size: 10px;
       }
-      .label-col, .vendor-label {
-        font-size: 8.8px;
+      .label-col {
+        font-size: 9px;
       }
       input[type="text"],
       input[type="number"],
@@ -422,16 +393,16 @@
         font-size: 11px;
       }
       .special-box textarea {
-        min-height: 22px;
+        min-height: 28px;
       }
       .approval-box {
-        height: 32px;
+        height: 38px;
       }
       .sig-line {
-        margin-top: 12px;
+        margin-top: 16px;
       }
       .footer-note {
-        margin-top: 3px;
+        margin-top: 4px;
       }
     }
   </style>
@@ -458,6 +429,7 @@
     <button class="btn btn-secondary" onclick="addRow()">+ Add Item Row</button>
     <button class="btn btn-secondary" onclick="resetForm()">Reset Form</button>
     <button class="btn btn-primary" onclick="triggerPrint()">Print / Save as PDF</button>
+    <button class="btn btn-whatsapp" onclick="shareOnWhatsApp()">Share on WhatsApp</button>
   </div>
   <div class="status-toast" id="statusToast"></div>
 
@@ -522,62 +494,28 @@
           </tbody>
         </table>
 
-        <!-- 2. Recommended Vendor Info (Below Requisitioner Info, 3 Options) -->
-        <table class="vendors-grid">
+        <!-- 2. Recommended Vendor Info (Single Vendor) -->
+        <table>
           <thead>
             <tr>
-              <th>Recommended Vendor 1</th>
-              <th>Recommended Vendor 2</th>
-              <th>Recommended Vendor 3</th>
+              <th colspan="2">Recommended Vendor Info:</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>
-                <table class="vendor-subtable">
+              <td colspan="2" style="padding: 0;">
+                <table class="nested-table">
                   <tr>
-                    <td class="vendor-label">Name</td>
-                    <td><input type="text" placeholder="Vendor 1 name" /></td>
+                    <td class="label-col">Name</td>
+                    <td><input type="text" id="vendorName" placeholder="Vendor / Supplier name" /></td>
                   </tr>
                   <tr>
-                    <td class="vendor-label">Address</td>
-                    <td><input type="text" placeholder="Vendor 1 address" /></td>
+                    <td class="label-col">Address</td>
+                    <td><input type="text" id="vendorAddress" placeholder="Vendor address / location" /></td>
                   </tr>
                   <tr>
-                    <td class="vendor-label">Phone</td>
-                    <td><input type="text" placeholder="Vendor 1 phone" /></td>
-                  </tr>
-                </table>
-              </td>
-              <td>
-                <table class="vendor-subtable">
-                  <tr>
-                    <td class="vendor-label">Name</td>
-                    <td><input type="text" placeholder="Vendor 2 name" /></td>
-                  </tr>
-                  <tr>
-                    <td class="vendor-label">Address</td>
-                    <td><input type="text" placeholder="Vendor 2 address" /></td>
-                  </tr>
-                  <tr>
-                    <td class="vendor-label">Phone</td>
-                    <td><input type="text" placeholder="Vendor 2 phone" /></td>
-                  </tr>
-                </table>
-              </td>
-              <td>
-                <table class="vendor-subtable">
-                  <tr>
-                    <td class="vendor-label">Name</td>
-                    <td><input type="text" placeholder="Vendor 3 name" /></td>
-                  </tr>
-                  <tr>
-                    <td class="vendor-label">Address</td>
-                    <td><input type="text" placeholder="Vendor 3 address" /></td>
-                  </tr>
-                  <tr>
-                    <td class="vendor-label">Phone</td>
-                    <td><input type="text" placeholder="Vendor 3 phone" /></td>
+                    <td class="label-col">Phone</td>
+                    <td><input type="text" id="vendorPhone" placeholder="Vendor phone contact" /></td>
                   </tr>
                 </table>
               </td>
@@ -633,7 +571,7 @@
         </table>
 
         <!-- 5. Approval Signatures -->
-        <table class="approval-grid">
+        <table class="two-col-grid">
           <thead>
             <tr>
               <th>Department Approval:</th>
@@ -681,7 +619,7 @@
       clearTimeout(showToast._timer);
       showToast._timer = setTimeout(() => {
         toast.textContent = '';
-      }, 3000);
+      }, 3500);
     }
 
     function getCleanFormUrl() {
@@ -712,6 +650,32 @@
       showToast('Clean form link copied');
     }
 
+    function shareOnWhatsApp() {
+      const reqNum = document.getElementById('reqNumber').value.trim() || 'New Requisition';
+      const reqDate = document.getElementById('reqDate').value.trim() || getTodayFormatted();
+      const name = document.getElementById('reqName').value.trim();
+      const dept = document.getElementById('reqDept').value.trim();
+      const vendor = document.getElementById('vendorName').value.trim();
+      const grandTotal = document.getElementById('grandTotal').textContent.trim();
+      const formUrl = getCleanFormUrl();
+
+      const lines = [
+        `*Nile International Hospital - Purchase Requisition*`,
+        `Req #: ${reqNum}`,
+        `Date: ${reqDate}`
+      ];
+      if (name) lines.push(`Requisitioner: ${name}`);
+      if (dept) lines.push(`Department: ${dept}`);
+      if (vendor) lines.push(`Vendor: ${vendor}`);
+      lines.push(`Grand Total: UGX ${grandTotal}`);
+      lines.push(`\n_(Attach your saved PDF copy after tapping "Print / Save as PDF")_`);
+      lines.push(`Form Link: ${formUrl}`);
+
+      const waUrl = `https://wa.me/?text=${encodeURIComponent(lines.join('\n'))}`;
+      showToast('Opening WhatsApp — remember to attach your saved PDF');
+      window.open(waUrl, '_blank', 'noopener,noreferrer');
+    }
+
     function saveProfile() {
       try {
         const profile = {
@@ -735,8 +699,8 @@
     }
 
     function autoGrowTextarea(el) {
-      el.style.height = '28px';
-      el.style.height = Math.max(28, el.scrollHeight) + 'px';
+      el.style.height = '36px';
+      el.style.height = Math.max(36, el.scrollHeight) + 'px';
     }
 
     function getTodayFormatted() {
@@ -812,7 +776,7 @@
     }
 
     function resetForm() {
-      if (!confirm('Clear items, vendors, and delivery info for a new requisition?')) return;
+      if (!confirm('Clear items, vendor, and delivery info for a new requisition? (Your saved profile stays intact.)')) return;
       const keepIds = new Set(['reqNumber', 'reqDate', 'reqName', 'reqDept', 'reqContact']);
       document.querySelectorAll('.page input[type="text"], .page input[type="number"], .page textarea').forEach(el => {
         if (!keepIds.has(el.id)) {
