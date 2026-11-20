@@ -39,7 +39,7 @@
     }
 
     .btn {
-      padding: 8px 13px;
+      padding: 8px 14px;
       border: none;
       border-radius: 5px;
       cursor: pointer;
@@ -54,11 +54,6 @@
 
     .btn-primary {
       background-color: var(--primary-teal);
-      color: white;
-    }
-
-    .btn-whatsapp {
-      background-color: #128c7e;
       color: white;
     }
 
@@ -196,12 +191,14 @@
       border-collapse: collapse;
       margin-bottom: 8px;
       font-size: 10.5px;
+      table-layout: fixed;
     }
 
     th, td {
       border: 1px solid var(--border-color);
       padding: 4px 6px;
       vertical-align: top;
+      word-wrap: break-word;
     }
 
     th {
@@ -215,6 +212,7 @@
     .nested-table {
       margin: 0;
       width: 100%;
+      table-layout: auto;
     }
 
     .nested-table td {
@@ -229,20 +227,6 @@
       font-weight: bold;
       text-transform: uppercase;
       color: #111;
-    }
-
-    .two-col-grid > tbody > tr > td {
-      width: 50%;
-    }
-
-    @media screen and (max-width: 720px) {
-      .two-col-grid > tbody > tr {
-        display: flex;
-        flex-direction: column;
-      }
-      .two-col-grid > tbody > tr > td {
-        width: 100%;
-      }
     }
 
     /* Form Inputs */
@@ -271,6 +255,10 @@
       background: #fff;
     }
 
+    .items-table {
+      table-layout: auto;
+    }
+
     .items-table th {
       font-size: 9.5px;
       text-transform: uppercase;
@@ -294,6 +282,12 @@
       height: 36px;
       resize: none;
       overflow-y: hidden;
+    }
+
+    /* Approval Signatures (Always Side by Side) */
+    .approval-grid th,
+    .approval-grid td {
+      width: 50%;
     }
 
     .approval-box {
@@ -335,12 +329,6 @@
       .page-scaler {
         width: 100%;
         overflow: visible;
-      }
-      .two-col-grid > tbody > tr {
-        display: table-row;
-      }
-      .two-col-grid > tbody > tr > td {
-        width: 50%;
       }
       .page {
         box-shadow: none;
@@ -429,7 +417,6 @@
     <button class="btn btn-secondary" onclick="addRow()">+ Add Item Row</button>
     <button class="btn btn-secondary" onclick="resetForm()">Reset Form</button>
     <button class="btn btn-primary" onclick="triggerPrint()">Print / Save as PDF</button>
-    <button class="btn btn-whatsapp" onclick="shareOnWhatsApp()">Share on WhatsApp</button>
   </div>
   <div class="status-toast" id="statusToast"></div>
 
@@ -494,7 +481,7 @@
           </tbody>
         </table>
 
-        <!-- 2. Recommended Vendor Info (Single Vendor) -->
+        <!-- 2. Recommended Vendor Info -->
         <table>
           <thead>
             <tr>
@@ -570,8 +557,8 @@
           </tbody>
         </table>
 
-        <!-- 5. Approval Signatures -->
-        <table class="two-col-grid">
+        <!-- 5. Approval Signatures (Side by Side) -->
+        <table class="approval-grid">
           <thead>
             <tr>
               <th>Department Approval:</th>
@@ -584,7 +571,7 @@
                 <div class="approval-box">
                   <div class="sig-line">
                     <span>Signature</span>
-                    <span style="margin-right: 45px;">Date</span>
+                    <span style="margin-right: 35px;">Date</span>
                   </div>
                 </div>
               </td>
@@ -592,7 +579,7 @@
                 <div class="approval-box">
                   <div class="sig-line">
                     <span>Signature</span>
-                    <span style="margin-right: 45px;">Date</span>
+                    <span style="margin-right: 35px;">Date</span>
                   </div>
                 </div>
               </td>
@@ -619,7 +606,7 @@
       clearTimeout(showToast._timer);
       showToast._timer = setTimeout(() => {
         toast.textContent = '';
-      }, 3500);
+      }, 3000);
     }
 
     function getCleanFormUrl() {
@@ -648,32 +635,6 @@
       document.execCommand('copy');
       document.body.removeChild(temp);
       showToast('Clean form link copied');
-    }
-
-    function shareOnWhatsApp() {
-      const reqNum = document.getElementById('reqNumber').value.trim() || 'New Requisition';
-      const reqDate = document.getElementById('reqDate').value.trim() || getTodayFormatted();
-      const name = document.getElementById('reqName').value.trim();
-      const dept = document.getElementById('reqDept').value.trim();
-      const vendor = document.getElementById('vendorName').value.trim();
-      const grandTotal = document.getElementById('grandTotal').textContent.trim();
-      const formUrl = getCleanFormUrl();
-
-      const lines = [
-        `*Nile International Hospital - Purchase Requisition*`,
-        `Req #: ${reqNum}`,
-        `Date: ${reqDate}`
-      ];
-      if (name) lines.push(`Requisitioner: ${name}`);
-      if (dept) lines.push(`Department: ${dept}`);
-      if (vendor) lines.push(`Vendor: ${vendor}`);
-      lines.push(`Grand Total: UGX ${grandTotal}`);
-      lines.push(`\n_(Attach your saved PDF copy after tapping "Print / Save as PDF")_`);
-      lines.push(`Form Link: ${formUrl}`);
-
-      const waUrl = `https://wa.me/?text=${encodeURIComponent(lines.join('\n'))}`;
-      showToast('Opening WhatsApp — remember to attach your saved PDF');
-      window.open(waUrl, '_blank', 'noopener,noreferrer');
     }
 
     function saveProfile() {
