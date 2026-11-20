@@ -7,8 +7,8 @@
   <style>
     :root {
       --primary-teal: #006666;
-      --border-color: #333333;
-      --header-bg: #f0f4f5;
+      --border-color: #222222;
+      --header-bg: #e8f0f1;
     }
 
     * {
@@ -18,13 +18,13 @@
 
     @page {
       size: A4 portrait;
-      margin: 8mm;
+      margin: 6mm;
     }
 
     body {
       background-color: #e9ecef;
       margin: 0;
-      padding: 14px;
+      padding: 12px;
       color: #000;
     }
 
@@ -70,7 +70,7 @@
       min-height: 297mm;
       margin: 0 auto;
       background: white;
-      padding: 10mm 12mm;
+      padding: 7mm 10mm;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
       position: relative;
       display: flex;
@@ -81,7 +81,7 @@
     /* Watermark */
     .watermark {
       position: absolute;
-      top: 52%;
+      top: 53%;
       left: 50%;
       transform: translate(-50%, -50%);
       text-align: center;
@@ -92,7 +92,7 @@
     }
 
     .watermark h1 {
-      font-size: 80px;
+      font-size: 82px;
       margin: 0;
       letter-spacing: 6px;
       color: var(--primary-teal);
@@ -113,40 +113,45 @@
     /* Header */
     .header {
       text-align: center;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .logo-placeholder {
-      max-height: 54px;
-      margin-bottom: 3px;
+      max-height: 82px;
+      max-width: 280px;
+      width: auto;
+      margin: 0 auto 3px auto;
+      display: block;
     }
 
     .form-title {
-      font-size: 14px;
-      font-weight: bold;
+      font-size: 15px;
+      font-weight: 800;
       letter-spacing: 0.8px;
       margin: 2px 0;
       text-transform: uppercase;
+      color: #000;
     }
 
     .instructions-sub {
-      font-size: 8.5px;
-      line-height: 1.25;
-      max-width: 92%;
-      margin: 0 auto 6px auto;
+      font-size: 9px;
+      line-height: 1.22;
+      max-width: 95%;
+      margin: 0 auto 5px auto;
+      color: #111;
     }
 
     /* Tables */
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-bottom: 7px;
-      font-size: 10px;
+      margin-bottom: 6px;
+      font-size: 10.5px;
     }
 
     th, td {
       border: 1px solid var(--border-color);
-      padding: 4px 6px;
+      padding: 3.5px 6px;
       vertical-align: top;
     }
 
@@ -154,7 +159,8 @@
       background-color: var(--header-bg);
       text-align: left;
       font-weight: bold;
-      font-size: 9.5px;
+      font-size: 10px;
+      color: #000;
     }
 
     .info-grid > tbody > tr > td {
@@ -169,34 +175,34 @@
 
     .nested-table td {
       border: none;
-      padding: 2.5px 6px;
+      padding: 2px 6px;
       vertical-align: middle;
     }
 
     .label-col {
-      width: 38%;
-      font-size: 8.5px;
+      width: 39%;
+      font-size: 9px;
       font-weight: bold;
       text-transform: uppercase;
-      color: #222;
+      color: #111;
     }
 
     .vendor-block {
-      border-bottom: 1px dashed #999;
-      padding: 3px 0;
+      border-bottom: 1px dashed #888;
+      padding: 2px 0;
     }
 
     .vendor-block:last-child {
       border-bottom: none;
-      padding-bottom: 0;
+      padding-bottom: 1px;
     }
 
     .vendor-title {
-      font-size: 8.5px;
+      font-size: 9px;
       font-weight: bold;
       color: var(--primary-teal);
       text-transform: uppercase;
-      margin: 0 6px 2px 6px;
+      margin: 0 6px 1px 6px;
     }
 
     /* Form Inputs */
@@ -204,17 +210,19 @@
     input[type="number"],
     textarea {
       width: 100%;
-      border: 1px dashed #b5b5b5;
-      background: rgba(255, 255, 255, 0.8);
+      border: 1px dashed #9e9e9e;
+      background: rgba(255, 255, 255, 0.9);
       padding: 2px 4px;
-      font-size: 10px;
+      font-size: 10.5px;
+      font-weight: 500;
       color: #000;
     }
 
     input::placeholder,
     textarea::placeholder {
-      color: #888;
-      font-size: 9px;
+      color: #777;
+      font-size: 9.5px;
+      font-weight: normal;
     }
 
     input:focus, textarea:focus {
@@ -224,9 +232,9 @@
     }
 
     .items-table th {
-      font-size: 9px;
+      font-size: 9.5px;
       text-transform: uppercase;
-      padding: 4px 6px;
+      padding: 3.5px 6px;
     }
 
     .num-col {
@@ -235,19 +243,20 @@
 
     .total-row td {
       font-weight: bold;
-      font-size: 10.5px;
-      background-color: #fafafa;
-      padding: 4px 6px;
+      font-size: 11px;
+      background-color: #f4f7f8;
+      padding: 3.5px 6px;
+      color: #000;
     }
 
     .special-box textarea {
-      min-height: 36px;
-      height: 36px;
+      min-height: 30px;
+      height: 30px;
       resize: vertical;
     }
 
     .approval-box {
-      height: 46px;
+      height: 40px;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
@@ -256,17 +265,19 @@
     .sig-line {
       display: flex;
       justify-content: space-between;
-      border-top: 1px solid #333;
+      border-top: 1px solid #222;
       padding-top: 2px;
-      font-size: 8.5px;
-      margin-top: 22px;
+      font-size: 9px;
+      font-weight: 600;
+      margin-top: 18px;
     }
 
     .footer-note {
       text-align: right;
-      font-size: 8.5px;
-      color: #333;
-      margin-top: 6px;
+      font-size: 9px;
+      font-weight: 600;
+      color: #222;
+      margin-top: 4px;
     }
 
     /* Single-Page Print Styling */
@@ -285,7 +296,7 @@
         width: 100%;
         min-height: auto;
         height: auto;
-        padding: 4mm 6mm;
+        padding: 3mm 5mm;
         page-break-after: avoid;
         break-after: avoid;
       }
@@ -293,30 +304,53 @@
         page-break-inside: avoid;
         break-inside: avoid;
       }
+      .logo-placeholder {
+        max-height: 74px;
+      }
+      .form-title {
+        font-size: 14.5px;
+      }
+      .instructions-sub {
+        font-size: 8.8px;
+      }
+      table {
+        font-size: 10.5px;
+        margin-bottom: 5px;
+      }
+      th {
+        font-size: 10px;
+      }
+      .label-col, .vendor-title {
+        font-size: 8.8px;
+      }
       input[type="text"],
       input[type="number"],
       textarea {
         border: none !important;
         background: transparent !important;
         padding: 0 2px;
+        font-size: 10.5px;
         resize: none;
       }
       input::placeholder,
       textarea::placeholder {
         color: transparent !important;
       }
+      .total-row td {
+        font-size: 11px;
+      }
       .special-box textarea {
-        height: 28px;
-        min-height: 28px;
+        height: 24px;
+        min-height: 24px;
       }
       .approval-box {
-        height: 38px;
+        height: 34px;
       }
       .sig-line {
-        margin-top: 16px;
+        margin-top: 14px;
       }
       .footer-note {
-        margin-top: 4px;
+        margin-top: 3px;
       }
     }
   </style>
@@ -340,7 +374,7 @@
     <div class="content-wrapper">
       <!-- Header -->
       <div class="header">
-        <img src="logo.png" alt="" class="logo-placeholder" onerror="this.style.display='none'">
+        <img src="logo.png" alt="Nile International Hospital Logo" class="logo-placeholder" onerror="this.style.display='none'">
         <div class="form-title">Purchase Requisition Form</div>
         <div class="instructions-sub">
           Forward the completed and approved form to the Purchasing Department/Approval workflow system.<br>
@@ -622,7 +656,6 @@
       const fields = document.querySelectorAll('.page input[type="text"], .page input[type="number"], .page textarea');
       fields.forEach((field, idx) => {
         savedValuesMap.set(idx, field.value);
-        // Hide default qty=1 if unit price wasn't entered so blank rows don't show stray "1"
         if (field.classList.contains('qty')) {
           const row = field.closest('tr');
           const priceVal = row ? parseFloat(row.querySelector('.price')?.value) : NaN;
