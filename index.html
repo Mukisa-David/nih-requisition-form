@@ -9,6 +9,10 @@
       --primary-teal: #006666;
       --border-color: #222222;
       --header-bg: #e8f0f1;
+      --warn-bg: #fff8e6;
+      --warn-border: #d9822b;
+      --invalid-border: #c92a2a;
+      --invalid-bg: #fff5f5;
     }
 
     * {
@@ -31,20 +35,20 @@
     /* Action Bar (Hidden when printing) */
     .controls {
       max-width: 210mm;
-      margin: 0 auto 10px auto;
+      margin: 0 auto 8px auto;
       display: flex;
-      gap: 8px;
+      gap: 6px;
       justify-content: flex-end;
       flex-wrap: wrap;
     }
 
     .btn {
-      padding: 8px 14px;
+      padding: 7px 12px;
       border: none;
       border-radius: 5px;
       cursor: pointer;
       font-weight: bold;
-      font-size: 13px;
+      font-size: 12px;
       transition: opacity 0.15s ease;
     }
 
@@ -68,6 +72,12 @@
       border: 1px solid var(--primary-teal);
     }
 
+    .btn-subtle {
+      background-color: #f8f9fa;
+      color: #333;
+      border: 1px solid #ced4da;
+    }
+
     .btn-danger {
       background-color: #dc3545;
       color: white;
@@ -78,12 +88,47 @@
 
     .status-toast {
       max-width: 210mm;
-      margin: 0 auto 8px auto;
+      margin: 0 auto 6px auto;
       font-size: 12px;
       color: var(--primary-teal);
       font-weight: bold;
       text-align: right;
       min-height: 16px;
+    }
+
+    /* Validation Warning Banner */
+    .validation-banner {
+      display: none;
+      max-width: 210mm;
+      margin: 0 auto 10px auto;
+      background-color: var(--warn-bg);
+      border: 1px solid var(--warn-border);
+      border-left: 4px solid var(--warn-border);
+      border-radius: 5px;
+      padding: 8px 12px;
+      font-size: 12px;
+      color: #2b1d0e;
+    }
+
+    .validation-banner.visible {
+      display: block;
+    }
+
+    .validation-banner ul {
+      margin: 4px 0 6px 18px;
+      padding: 0;
+    }
+
+    .validation-actions {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+      margin-top: 6px;
+    }
+
+    .field-invalid {
+      border: 1.5px solid var(--invalid-border) !important;
+      background-color: var(--invalid-bg) !important;
     }
 
     /* Single A4 Page Container */
@@ -106,8 +151,10 @@
         padding: 8px;
         overflow-x: hidden;
       }
-      .controls, .status-toast {
+      .controls, .status-toast, .validation-banner {
         max-width: 100%;
+      }
+      .controls {
         justify-content: center;
       }
       .page-scaler {
@@ -127,23 +174,23 @@
       position: absolute;
       top: 53%;
       left: 50%;
-      transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%) rotate(-12deg);
       text-align: center;
-      opacity: 0.06;
+      opacity: 0.055;
       pointer-events: none;
       z-index: 0;
       width: 85%;
     }
 
     .watermark h1 {
-      font-size: 82px;
+      font-size: 80px;
       margin: 0;
       letter-spacing: 6px;
       color: var(--primary-teal);
     }
 
     .watermark p {
-      font-size: 20px;
+      font-size: 19px;
       margin: 4px 0;
       font-weight: bold;
       letter-spacing: 2px;
@@ -157,11 +204,11 @@
     /* Header */
     .header {
       text-align: center;
-      margin-bottom: 8px;
+      margin-bottom: 7px;
     }
 
     .logo-placeholder {
-      max-height: 84px;
+      max-height: 80px;
       max-width: 290px;
       width: auto;
       margin: 0 auto 4px auto;
@@ -169,7 +216,7 @@
     }
 
     .form-title {
-      font-size: 15.5px;
+      font-size: 15px;
       font-weight: 800;
       letter-spacing: 0.8px;
       margin: 2px 0;
@@ -178,10 +225,10 @@
     }
 
     .instructions-sub {
-      font-size: 9px;
+      font-size: 8.8px;
       line-height: 1.25;
       max-width: 95%;
-      margin: 0 auto 6px auto;
+      margin: 0 auto 5px auto;
       color: #111;
     }
 
@@ -189,14 +236,14 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-bottom: 8px;
-      font-size: 10.5px;
+      margin-bottom: 7px;
+      font-size: 10.2px;
       table-layout: fixed;
     }
 
     th, td {
       border: 1px solid var(--border-color);
-      padding: 4px 6px;
+      padding: 3.5px 6px;
       vertical-align: top;
       word-wrap: break-word;
     }
@@ -205,7 +252,7 @@
       background-color: var(--header-bg);
       text-align: left;
       font-weight: bold;
-      font-size: 10px;
+      font-size: 9.8px;
       color: #000;
     }
 
@@ -217,13 +264,13 @@
 
     .nested-table td {
       border: none;
-      padding: 2.5px 6px;
+      padding: 2px 6px;
       vertical-align: middle;
     }
 
     .label-col {
       width: 30%;
-      font-size: 9px;
+      font-size: 8.8px;
       font-weight: bold;
       text-transform: uppercase;
       color: #111;
@@ -236,8 +283,8 @@
       width: 100%;
       border: 1px dashed #9e9e9e;
       background: rgba(255, 255, 255, 0.92);
-      padding: 2.5px 5px;
-      font-size: 10.5px;
+      padding: 2px 5px;
+      font-size: 10.2px;
       font-weight: 500;
       color: #000;
     }
@@ -245,7 +292,7 @@
     input::placeholder,
     textarea::placeholder {
       color: #777;
-      font-size: 9.5px;
+      font-size: 9.2px;
       font-weight: normal;
     }
 
@@ -260,9 +307,9 @@
     }
 
     .items-table th {
-      font-size: 9.5px;
+      font-size: 9.2px;
       text-transform: uppercase;
-      padding: 4px 6px;
+      padding: 3.5px 6px;
     }
 
     .num-col {
@@ -271,15 +318,22 @@
 
     .total-row td {
       font-weight: bold;
-      font-size: 11px;
+      font-size: 10.8px;
       background-color: #f4f7f8;
-      padding: 4px 6px;
+      padding: 3.5px 6px;
       color: #000;
     }
 
+    .words-row td {
+      font-size: 9.2px;
+      background-color: #fafcfc;
+      padding: 3px 6px;
+      color: #111;
+    }
+
     .special-box textarea {
-      min-height: 36px;
-      height: 36px;
+      min-height: 32px;
+      height: 32px;
       resize: none;
       overflow-y: hidden;
     }
@@ -291,7 +345,7 @@
     }
 
     .approval-box {
-      height: 46px;
+      height: 44px;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
@@ -302,17 +356,17 @@
       justify-content: space-between;
       border-top: 1px solid #222;
       padding-top: 2px;
-      font-size: 9px;
+      font-size: 8.8px;
       font-weight: 600;
-      margin-top: 20px;
+      margin-top: 18px;
     }
 
     .footer-note {
       text-align: right;
-      font-size: 9px;
+      font-size: 8.8px;
       font-weight: 600;
       color: #222;
-      margin-top: 6px;
+      margin-top: 5px;
     }
 
     /* Single-Page Print Styling */
@@ -323,7 +377,7 @@
         margin: 0;
         overflow: visible;
       }
-      .controls, .status-toast, .no-print {
+      .controls, .status-toast, .validation-banner, .no-print {
         display: none !important;
       }
       .page-scaler {
@@ -345,24 +399,27 @@
         page-break-inside: avoid;
         break-inside: avoid;
       }
+      .watermark {
+        opacity: 0.05;
+      }
       .logo-placeholder {
-        max-height: 76px;
+        max-height: 74px;
       }
       .form-title {
-        font-size: 15px;
+        font-size: 14.5px;
       }
       .instructions-sub {
-        font-size: 9px;
+        font-size: 8.6px;
       }
       table {
-        font-size: 10.5px;
-        margin-bottom: 6px;
+        font-size: 10px;
+        margin-bottom: 5.5px;
       }
       th {
-        font-size: 10px;
+        font-size: 9.5px;
       }
       .label-col {
-        font-size: 9px;
+        font-size: 8.6px;
       }
       input[type="text"],
       input[type="number"],
@@ -370,7 +427,7 @@
         border: none !important;
         background: transparent !important;
         padding: 0 2px;
-        font-size: 10.5px;
+        font-size: 10px;
         resize: none;
       }
       input::placeholder,
@@ -378,16 +435,19 @@
         color: transparent !important;
       }
       .total-row td {
-        font-size: 11px;
+        font-size: 10.5px;
+      }
+      .words-row td {
+        font-size: 8.8px;
       }
       .special-box textarea {
-        min-height: 28px;
+        min-height: 26px;
       }
       .approval-box {
-        height: 38px;
+        height: 36px;
       }
       .sig-line {
-        margin-top: 16px;
+        margin-top: 15px;
       }
       .footer-note {
         margin-top: 4px;
@@ -412,13 +472,28 @@
     <option value="Administration & Stores"></option>
   </datalist>
 
+  <datalist id="presetItemsList"></datalist>
+  <datalist id="presetVendorsList"></datalist>
+
   <div class="controls">
     <button class="btn btn-outline" onclick="copyFormLink()">Copy Form Link</button>
     <button class="btn btn-secondary" onclick="addRow()">+ Add Item Row</button>
+    <button class="btn btn-secondary" onclick="cloneRequisition()">Clone Requisition</button>
+    <button class="btn btn-subtle" onclick="forgetProfile()">Forget My Info</button>
     <button class="btn btn-secondary" onclick="resetForm()">Reset Form</button>
-    <button class="btn btn-primary" onclick="triggerPrint()">Print / Save as PDF</button>
+    <button class="btn btn-primary" onclick="handlePrintClick()">Print / Save as PDF</button>
   </div>
+
   <div class="status-toast" id="statusToast"></div>
+
+  <div class="validation-banner" id="validationBanner">
+    <strong>Before Printing — Please Review:</strong>
+    <ul id="validationList"></ul>
+    <div class="validation-actions">
+      <button class="btn btn-subtle" onclick="dismissValidationBanner()">Fix Fields</button>
+      <button class="btn btn-primary" onclick="executePrint()">Print Anyway</button>
+    </div>
+  </div>
 
   <div class="page-scaler">
     <div class="page">
@@ -460,12 +535,12 @@
                     <td><input type="text" id="reqDate" placeholder="DD/MM/YYYY" oninput="onDateChange()" /></td>
                   </tr>
                   <tr>
-                    <td class="label-col">Name</td>
-                    <td><input type="text" id="reqName" placeholder="Enter your full name" oninput="saveProfile()" /></td>
+                    <td class="label-col">Name *</td>
+                    <td><input type="text" id="reqName" placeholder="Enter your full name" oninput="clearFieldFlag(this); saveProfile()" /></td>
                   </tr>
                   <tr>
-                    <td class="label-col">Department</td>
-                    <td><input type="text" id="reqDept" list="hospitalDepartments" placeholder="Select or type department" oninput="saveProfile()" /></td>
+                    <td class="label-col">Department *</td>
+                    <td><input type="text" id="reqDept" list="hospitalDepartments" placeholder="Select or type department" oninput="clearFieldFlag(this); saveProfile()" /></td>
                   </tr>
                   <tr>
                     <td class="label-col">Phone / Email</td>
@@ -494,7 +569,7 @@
                 <table class="nested-table">
                   <tr>
                     <td class="label-col">Name</td>
-                    <td><input type="text" id="vendorName" placeholder="Vendor / Supplier name" /></td>
+                    <td><input type="text" id="vendorName" list="presetVendorsList" placeholder="Vendor / Supplier name (or pick preset)" onchange="applyVendorPreset()" /></td>
                   </tr>
                   <tr>
                     <td class="label-col">Address</td>
@@ -514,20 +589,20 @@
         <table class="items-table" id="itemsTable">
           <thead>
             <tr>
-              <th style="width: 24%;">Item Name</th>
-              <th style="width: 9%;">Qty</th>
+              <th style="width: 24%;">Item Name *</th>
+              <th style="width: 9%;">Qty *</th>
               <th style="width: 35%;">Description</th>
-              <th style="width: 15%;" class="num-col">Unit Price</th>
+              <th style="width: 15%;" class="num-col">Unit Price *</th>
               <th style="width: 17%;" class="num-col">Total</th>
               <th class="no-print" style="width: 34px;"></th>
             </tr>
           </thead>
           <tbody id="itemsBody">
             <tr>
-              <td><input type="text" placeholder="e.g. SpO2 probe" /></td>
-              <td><input type="number" min="1" value="1" class="qty" oninput="calculateTotals()" /></td>
-              <td><input type="text" placeholder="Item specifications" /></td>
-              <td><input type="number" min="0" step="any" placeholder="0.00" class="price num-col" oninput="calculateTotals()" /></td>
+              <td><input type="text" class="item-name" list="presetItemsList" placeholder="e.g. SpO2 probe" oninput="clearFieldFlag(this)" onchange="applyItemPreset(this)" /></td>
+              <td><input type="number" min="1" value="1" class="qty" oninput="clearFieldFlag(this); calculateTotals()" /></td>
+              <td><input type="text" class="item-desc" placeholder="Item specifications" /></td>
+              <td><input type="number" min="0" step="any" placeholder="0.00" class="price num-col" oninput="clearFieldFlag(this); calculateTotals()" /></td>
               <td class="num-col row-total">0.00</td>
               <td class="no-print"><button class="btn btn-danger" onclick="removeRow(this)">X</button></td>
             </tr>
@@ -536,6 +611,12 @@
             <tr class="total-row">
               <td colspan="4" class="num-col">Grand Total (UGX)</td>
               <td class="num-col" id="grandTotal">0.00</td>
+              <td class="no-print"></td>
+            </tr>
+            <tr class="words-row" id="amountWordsRow" style="display: none;">
+              <td colspan="5">
+                <strong>Amount in Words:</strong> <span id="amountInWords">Zero Uganda Shillings Only</span>
+              </td>
               <td class="no-print"></td>
             </tr>
           </tfoot>
@@ -597,8 +678,71 @@
   <script>
     const PROFILE_STORAGE_KEY = 'nih_req_profile_v1';
     const DEFAULT_DOC_TITLE = 'Nile International Hospital - Purchase Requisition Form';
+
+    // Customize common items and vendors here as needed
+    const PRESET_ITEMS = [
+      { name: 'SpO2 Sensor (Adult)', desc: 'Reusable finger clip sensor, compatible with bedside monitor', price: 85000 },
+      { name: 'ECG Thermal Paper Roll', desc: '80mm x 20m grid thermal recording paper', price: 25000 },
+      { name: 'Nitrile Examination Gloves', desc: 'Box of 100 powder-free disposable gloves', price: 28000 },
+      { name: 'IV Cannula (20G / 22G)', desc: 'Sterile safety IV catheter, pack of 50', price: 45000 },
+      { name: 'RO Prefilter Cartridge', desc: '5-micron sediment prefilter for dialysis RO plant', price: 120000 }
+    ];
+
+    const PRESET_VENDORS = [
+      { name: 'Jinja MedTech Supplies Ltd', address: 'Main Street, Jinja', phone: '+256 700 000 000' },
+      { name: 'Kampala Biomedical & Lab Systems', address: 'Plot 14 Nakasero Rd, Kampala', phone: '+256 770 000 000' },
+      { name: 'East Africa Surgical & Consumables', address: 'Industrial Area, Kampala', phone: '+256 780 000 000' }
+    ];
+
     let randomSuffix = Math.floor(1000 + Math.random() * 9000);
     let savedValuesMap = new Map();
+
+    function populatePresets() {
+      const itemList = document.getElementById('presetItemsList');
+      itemList.innerHTML = '';
+      PRESET_ITEMS.forEach(item => {
+        const opt = document.createElement('option');
+        opt.value = item.name;
+        opt.label = `${item.name} — UGX ${item.price.toLocaleString()}`;
+        itemList.appendChild(opt);
+      });
+
+      const vendorList = document.getElementById('presetVendorsList');
+      vendorList.innerHTML = '';
+      PRESET_VENDORS.forEach(v => {
+        const opt = document.createElement('option');
+        opt.value = v.name;
+        opt.label = v.address;
+        vendorList.appendChild(opt);
+      });
+    }
+
+    function applyItemPreset(inputEl) {
+      const val = inputEl.value.trim().toLowerCase();
+      const match = PRESET_ITEMS.find(i => i.name.toLowerCase() === val);
+      if (!match) return;
+      const row = inputEl.closest('tr');
+      const descInput = row.querySelector('.item-desc');
+      const priceInput = row.querySelector('.price');
+      if (descInput && !descInput.value.trim()) {
+        descInput.value = match.desc;
+      }
+      if (priceInput && !priceInput.value.trim()) {
+        priceInput.value = match.price;
+        clearFieldFlag(priceInput);
+      }
+      calculateTotals();
+    }
+
+    function applyVendorPreset() {
+      const val = document.getElementById('vendorName').value.trim().toLowerCase();
+      const match = PRESET_VENDORS.find(v => v.name.toLowerCase() === val);
+      if (!match) return;
+      const addrEl = document.getElementById('vendorAddress');
+      const phoneEl = document.getElementById('vendorPhone');
+      if (!addrEl.value.trim()) addrEl.value = match.address;
+      if (!phoneEl.value.trim()) phoneEl.value = match.phone;
+    }
 
     function showToast(msg) {
       const toast = document.getElementById('statusToast');
@@ -659,9 +803,19 @@
       } catch (e) {}
     }
 
+    function forgetProfile() {
+      try {
+        localStorage.removeItem(PROFILE_STORAGE_KEY);
+      } catch (e) {}
+      document.getElementById('reqName').value = '';
+      document.getElementById('reqDept').value = '';
+      document.getElementById('reqContact').value = '';
+      showToast('Saved profile cleared from this device');
+    }
+
     function autoGrowTextarea(el) {
-      el.style.height = '36px';
-      el.style.height = Math.max(36, el.scrollHeight) + 'px';
+      el.style.height = '32px';
+      el.style.height = Math.max(32, el.scrollHeight) + 'px';
     }
 
     function getTodayFormatted() {
@@ -699,6 +853,57 @@
       return num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
 
+    function numberToWords(num) {
+      if (!Number.isFinite(num) || num <= 0) return '';
+      const whole = Math.floor(num);
+      const cents = Math.round((num - whole) * 100);
+
+      const ones = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine'];
+      const teens = ['Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
+      const tens = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+
+      function twoDigits(n) {
+        if (n < 10) return ones[n];
+        if (n < 20) return teens[n - 10];
+        const t = Math.floor(n / 10);
+        const o = n % 10;
+        return tens[t] + (o ? ' ' + ones[o] : '');
+      }
+
+      function threeDigits(n) {
+        const h = Math.floor(n / 100);
+        const rem = n % 100;
+        let out = '';
+        if (h > 0) out += ones[h] + ' Hundred';
+        if (rem > 0) out += (out ? ' ' : '') + twoDigits(rem);
+        return out;
+      }
+
+      if (whole === 0) return '';
+
+      const scales = ['', 'Thousand', 'Million', 'Billion', 'Trillion'];
+      let remaining = whole;
+      let scaleIdx = 0;
+      const parts = [];
+
+      while (remaining > 0 && scaleIdx < scales.length) {
+        const chunk = remaining % 1000;
+        if (chunk > 0) {
+          const chunkWords = threeDigits(chunk);
+          const scaleWord = scales[scaleIdx] ? ' ' + scales[scaleIdx] : '';
+          parts.unshift(chunkWords + scaleWord);
+        }
+        remaining = Math.floor(remaining / 1000);
+        scaleIdx++;
+      }
+
+      let result = parts.join(' ') + ' Uganda Shillings';
+      if (cents > 0) {
+        result += ' and ' + cents + '/100';
+      }
+      return result + ' Only';
+    }
+
     function calculateTotals() {
       const rows = document.querySelectorAll('#itemsBody tr');
       let grandTotal = 0;
@@ -712,19 +917,33 @@
       });
 
       document.getElementById('grandTotal').textContent = formatMoney(grandTotal);
+
+      const wordsRow = document.getElementById('amountWordsRow');
+      const wordsSpan = document.getElementById('amountInWords');
+      if (grandTotal > 0) {
+        wordsSpan.textContent = numberToWords(grandTotal);
+        wordsRow.style.display = '';
+      } else {
+        wordsSpan.textContent = '';
+        wordsRow.style.display = 'none';
+      }
+    }
+
+    function createRowHtml() {
+      return `
+        <td><input type="text" class="item-name" list="presetItemsList" placeholder="Item name" oninput="clearFieldFlag(this)" onchange="applyItemPreset(this)" /></td>
+        <td><input type="number" min="1" value="1" class="qty" oninput="clearFieldFlag(this); calculateTotals()" /></td>
+        <td><input type="text" class="item-desc" placeholder="Description" /></td>
+        <td><input type="number" min="0" step="any" placeholder="0.00" class="price num-col" oninput="clearFieldFlag(this); calculateTotals()" /></td>
+        <td class="num-col row-total">0.00</td>
+        <td class="no-print"><button class="btn btn-danger" onclick="removeRow(this)">X</button></td>
+      `;
     }
 
     function addRow() {
       const tbody = document.getElementById('itemsBody');
       const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td><input type="text" placeholder="Item name" /></td>
-        <td><input type="number" min="1" value="1" class="qty" oninput="calculateTotals()" /></td>
-        <td><input type="text" placeholder="Description" /></td>
-        <td><input type="number" min="0" step="any" placeholder="0.00" class="price num-col" oninput="calculateTotals()" /></td>
-        <td class="num-col row-total">0.00</td>
-        <td class="no-print"><button class="btn btn-danger" onclick="removeRow(this)">X</button></td>
-      `;
+      tr.innerHTML = createRowHtml();
       tbody.appendChild(tr);
     }
 
@@ -736,23 +955,110 @@
       }
     }
 
+    function cloneRequisition() {
+      dismissValidationBanner();
+      randomSuffix = Math.floor(1000 + Math.random() * 9000);
+      const todayStr = getTodayFormatted();
+      document.getElementById('reqDate').value = todayStr;
+      document.getElementById('reqNumber').value = buildReqNumberFromDate(todayStr);
+      syncFooterReq();
+      calculateTotals();
+      showToast('Requisition cloned with new number & today\'s date');
+    }
+
     function resetForm() {
       if (!confirm('Clear items, vendor, and delivery info for a new requisition? (Your saved profile stays intact.)')) return;
+      dismissValidationBanner();
       const keepIds = new Set(['reqNumber', 'reqDate', 'reqName', 'reqDept', 'reqContact']);
       document.querySelectorAll('.page input[type="text"], .page input[type="number"], .page textarea').forEach(el => {
         if (!keepIds.has(el.id)) {
           el.value = '';
         }
+        el.classList.remove('field-invalid');
       });
       const tbody = document.getElementById('itemsBody');
       while (tbody.rows.length > 1) {
         tbody.deleteRow(1);
       }
-      tbody.querySelector('.qty').value = 1;
-      tbody.querySelector('.price').value = '';
+      tbody.rows[0].innerHTML = createRowHtml();
       autoGrowTextarea(document.getElementById('specialInstructions'));
       randomSuffix = Math.floor(1000 + Math.random() * 9000);
       initForm(false);
+    }
+
+    function clearFieldFlag(el) {
+      if (el) el.classList.remove('field-invalid');
+    }
+
+    function dismissValidationBanner() {
+      document.getElementById('validationBanner').classList.remove('visible');
+    }
+
+    function validateRequisition() {
+      const issues = [];
+      document.querySelectorAll('.page .field-invalid').forEach(el => el.classList.remove('field-invalid'));
+
+      const nameEl = document.getElementById('reqName');
+      const deptEl = document.getElementById('reqDept');
+      if (!nameEl.value.trim()) {
+        nameEl.classList.add('field-invalid');
+        issues.push('Requisitioner Name is missing.');
+      }
+      if (!deptEl.value.trim()) {
+        deptEl.classList.add('field-invalid');
+        issues.push('Requisitioner Department is missing.');
+      }
+
+      const rows = Array.from(document.querySelectorAll('#itemsBody tr'));
+      let validItemCount = 0;
+
+      rows.forEach((row, idx) => {
+        const nameInput = row.querySelector('.item-name');
+        const qtyInput = row.querySelector('.qty');
+        const priceInput = row.querySelector('.price');
+
+        const itemName = nameInput.value.trim();
+        const qty = parseFloat(qtyInput.value);
+        const price = parseFloat(priceInput.value);
+
+        const rowHasAnyInput = itemName !== '' || (!Number.isNaN(price) && price > 0);
+        if (rowHasAnyInput || rows.length === 1) {
+          if (!itemName) {
+            nameInput.classList.add('field-invalid');
+            issues.push(`Row ${idx + 1}: Item Name is missing.`);
+          }
+          if (Number.isNaN(qty) || qty <= 0) {
+            qtyInput.classList.add('field-invalid');
+            issues.push(`Row ${idx + 1}: Quantity must be greater than 0.`);
+          }
+          if (Number.isNaN(price) || price <= 0) {
+            priceInput.classList.add('field-invalid');
+            issues.push(`Row ${idx + 1}: Unit Price is missing or 0.`);
+          }
+          if (itemName && qty > 0 && price > 0) {
+            validItemCount++;
+          }
+        }
+      });
+
+      if (validItemCount === 0 && issues.length === 0) {
+        issues.push('At least one complete item (Name, Qty, and Unit Price) is required.');
+      }
+
+      return issues;
+    }
+
+    function handlePrintClick() {
+      const issues = validateRequisition();
+      if (issues.length > 0) {
+        const listEl = document.getElementById('validationList');
+        listEl.innerHTML = issues.map(item => `<li>${item}</li>`).join('');
+        document.getElementById('validationBanner').classList.add('visible');
+        document.getElementById('validationBanner').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        return;
+      }
+      dismissValidationBanner();
+      executePrint();
     }
 
     function prepareForPrint() {
@@ -767,7 +1073,7 @@
         savedValuesMap.set(idx, field.value);
         if (field.classList.contains('qty')) {
           const row = field.closest('tr');
-          const priceVal = row ? parseFloat(row.querySelector('.price')?.value) : NaN;
+          const priceVal = parseFloat(row ? row.querySelector('.price')?.value : NaN);
           if (!priceVal && field.value === '1') {
             field.value = '';
           }
@@ -788,7 +1094,7 @@
       calculateTotals();
     }
 
-    function triggerPrint() {
+    function executePrint() {
       prepareForPrint();
       window.print();
       setTimeout(restoreAfterPrint, 500);
@@ -798,6 +1104,7 @@
     window.addEventListener('afterprint', restoreAfterPrint);
 
     function initForm(shouldLoadProfile = true) {
+      populatePresets();
       if (shouldLoadProfile) {
         loadProfile();
       }
