@@ -45,6 +45,11 @@
       cursor: pointer;
       font-weight: bold;
       font-size: 13px;
+      transition: opacity 0.15s ease;
+    }
+
+    .btn:hover {
+      opacity: 0.92;
     }
 
     .btn-primary {
@@ -57,11 +62,28 @@
       color: white;
     }
 
+    .btn-outline {
+      background-color: #ffffff;
+      color: var(--primary-teal);
+      border: 1px solid var(--primary-teal);
+    }
+
     .btn-danger {
       background-color: #dc3545;
       color: white;
       padding: 2px 7px;
       font-size: 11px;
+      border-radius: 3px;
+    }
+
+    .status-toast {
+      max-width: 210mm;
+      margin: 0 auto 8px auto;
+      font-size: 12px;
+      color: var(--primary-teal);
+      font-weight: bold;
+      text-align: right;
+      min-height: 16px;
     }
 
     /* Single A4 Page Container */
@@ -76,6 +98,29 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      transform-origin: top left;
+    }
+
+    /* Responsive scaling on smaller screens */
+    @media screen and (max-width: 220mm) {
+      body {
+        padding: 8px;
+        overflow-x: hidden;
+      }
+      .controls, .status-toast {
+        max-width: 100%;
+        justify-content: center;
+      }
+      .page-scaler {
+        width: 100%;
+        overflow-x: auto;
+      }
+      .page {
+        width: 100%;
+        min-width: 100%;
+        min-height: auto;
+        padding: 5mm;
+      }
     }
 
     /* Watermark */
@@ -168,6 +213,16 @@
       padding: 0;
     }
 
+    @media screen and (max-width: 720px) {
+      .info-grid > tbody > tr {
+        display: flex;
+        flex-direction: column;
+      }
+      .info-grid > tbody > tr > td {
+        width: 100%;
+      }
+    }
+
     .nested-table {
       margin: 0;
       width: 100%;
@@ -211,7 +266,7 @@
     textarea {
       width: 100%;
       border: 1px dashed #9e9e9e;
-      background: rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.92);
       padding: 2px 4px;
       font-size: 10.5px;
       font-weight: 500;
@@ -250,9 +305,10 @@
     }
 
     .special-box textarea {
-      min-height: 30px;
-      height: 30px;
-      resize: vertical;
+      min-height: 28px;
+      height: 28px;
+      resize: none;
+      overflow-y: hidden;
     }
 
     .approval-box {
@@ -286,14 +342,26 @@
         background: none;
         padding: 0;
         margin: 0;
+        overflow: visible;
       }
-      .controls, .no-print {
+      .controls, .status-toast, .no-print {
         display: none !important;
+      }
+      .page-scaler {
+        width: 100%;
+        overflow: visible;
+      }
+      .info-grid > tbody > tr {
+        display: table-row;
+      }
+      .info-grid > tbody > tr > td {
+        width: 50%;
       }
       .page {
         box-shadow: none;
         margin: 0;
         width: 100%;
+        min-width: 100%;
         min-height: auto;
         height: auto;
         padding: 3mm 5mm;
@@ -340,8 +408,7 @@
         font-size: 11px;
       }
       .special-box textarea {
-        height: 24px;
-        min-height: 24px;
+        min-height: 22px;
       }
       .approval-box {
         height: 34px;
@@ -357,214 +424,296 @@
 </head>
 <body>
 
+  <datalist id="hospitalDepartments">
+    <option value="Biomedical Engineering"></option>
+    <option value="Outpatient Department (OPD)"></option>
+    <option value="Inpatient Ward"></option>
+    <option value="Operating Theatre"></option>
+    <option value="Intensive Care Unit (ICU)"></option>
+    <option value="Maternity"></option>
+    <option value="Laboratory"></option>
+    <option value="Pharmacy"></option>
+    <option value="Radiology & Imaging"></option>
+    <option value="Dialysis Unit"></option>
+    <option value="Maintenance & Estates"></option>
+    <option value="Administration & Stores"></option>
+  </datalist>
+
   <div class="controls">
+    <button class="btn btn-outline" onclick="copyFormLink()">Copy Link</button>
     <button class="btn btn-secondary" onclick="addRow()">+ Add Item Row</button>
     <button class="btn btn-secondary" onclick="resetForm()">Reset Form</button>
     <button class="btn btn-primary" onclick="triggerPrint()">Print / Save as PDF</button>
   </div>
+  <div class="status-toast" id="statusToast"></div>
 
-  <div class="page">
-    <!-- Background Watermark -->
-    <div class="watermark">
-      <h1>NILE</h1>
-      <p>INTERNATIONAL HOSPITAL</p>
-      <span style="font-style: italic; font-family: Georgia, serif;">Source of Health</span>
-    </div>
-
-    <div class="content-wrapper">
-      <!-- Header -->
-      <div class="header">
-        <img src="logo.png" alt="Nile International Hospital Logo" class="logo-placeholder" onerror="this.style.display='none'">
-        <div class="form-title">Purchase Requisition Form</div>
-        <div class="instructions-sub">
-          Forward the completed and approved form to the Purchasing Department/Approval workflow system.<br>
-          Forms that are not approved or incomplete will be returned to the requisitioner. All inquiries may be directed to Purchasing office.
-        </div>
+  <div class="page-scaler">
+    <div class="page">
+      <!-- Background Watermark -->
+      <div class="watermark">
+        <h1>NILE</h1>
+        <p>INTERNATIONAL HOSPITAL</p>
+        <span style="font-style: italic; font-family: Georgia, serif;">Source of Health</span>
       </div>
 
-      <!-- Top Info Grid -->
-      <table class="info-grid">
-        <thead>
-          <tr>
-            <th>Requisitioner Info:</th>
-            <th>Recommended Vendor Info (Up to 3 Options):</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <table class="nested-table">
-                <tr>
-                  <td class="label-col">Requisition Number</td>
-                  <td><input type="text" id="reqNumber" oninput="syncFooterReq()" /></td>
-                </tr>
-                <tr>
-                  <td class="label-col">Date</td>
-                  <td><input type="text" id="reqDate" placeholder="DD/MM/YYYY" oninput="onDateChange()" /></td>
-                </tr>
-                <tr>
-                  <td class="label-col">Name</td>
-                  <td><input type="text" placeholder="Enter your full name" /></td>
-                </tr>
-                <tr>
-                  <td class="label-col">Department</td>
-                  <td><input type="text" placeholder="e.g. Biomedical Engineering" /></td>
-                </tr>
-                <tr>
-                  <td class="label-col">Phone / Email</td>
-                  <td><input type="text" placeholder="Phone number or email" /></td>
-                </tr>
-                <tr>
-                  <td class="label-col">Delivery Department</td>
-                  <td><input type="text" placeholder="Destination department" /></td>
-                </tr>
-              </table>
-            </td>
-            <td>
-              <div class="vendor-block">
-                <div class="vendor-title">Vendor 1</div>
+      <div class="content-wrapper">
+        <!-- Header -->
+        <div class="header">
+          <img src="logo.png" alt="Nile International Hospital Logo" class="logo-placeholder" onerror="this.style.display='none'">
+          <div class="form-title">Purchase Requisition Form</div>
+          <div class="instructions-sub">
+            Forward the completed and approved form to the Purchasing Department/Approval workflow system.<br>
+            Forms that are not approved or incomplete will be returned to the requisitioner. All inquiries may be directed to Purchasing office.
+          </div>
+        </div>
+
+        <!-- Top Info Grid -->
+        <table class="info-grid">
+          <thead>
+            <tr>
+              <th>Requisitioner Info:</th>
+              <th>Recommended Vendor Info (Up to 3 Options):</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
                 <table class="nested-table">
                   <tr>
-                    <td class="label-col">Name</td>
-                    <td><input type="text" placeholder="First vendor name" /></td>
+                    <td class="label-col">Requisition Number</td>
+                    <td><input type="text" id="reqNumber" oninput="syncFooterReq()" /></td>
                   </tr>
                   <tr>
-                    <td class="label-col">Address</td>
-                    <td><input type="text" placeholder="First vendor address" /></td>
+                    <td class="label-col">Date</td>
+                    <td><input type="text" id="reqDate" placeholder="DD/MM/YYYY" oninput="onDateChange()" /></td>
                   </tr>
-                  <tr>
-                    <td class="label-col">Phone</td>
-                    <td><input type="text" placeholder="First vendor phone" /></td>
-                  </tr>
-                </table>
-              </div>
-
-              <div class="vendor-block">
-                <div class="vendor-title">Vendor 2</div>
-                <table class="nested-table">
                   <tr>
                     <td class="label-col">Name</td>
-                    <td><input type="text" placeholder="Second vendor name" /></td>
+                    <td><input type="text" id="reqName" placeholder="Enter your full name" oninput="saveProfile()" /></td>
                   </tr>
                   <tr>
-                    <td class="label-col">Address</td>
-                    <td><input type="text" placeholder="Second vendor address" /></td>
+                    <td class="label-col">Department</td>
+                    <td><input type="text" id="reqDept" list="hospitalDepartments" placeholder="Select or type department" oninput="saveProfile()" /></td>
                   </tr>
                   <tr>
-                    <td class="label-col">Phone</td>
-                    <td><input type="text" placeholder="Second vendor phone" /></td>
+                    <td class="label-col">Phone / Email</td>
+                    <td><input type="text" id="reqContact" placeholder="Phone number or email" oninput="saveProfile()" /></td>
+                  </tr>
+                  <tr>
+                    <td class="label-col">Delivery Department</td>
+                    <td><input type="text" id="deliveryDept" list="hospitalDepartments" placeholder="Destination department" /></td>
                   </tr>
                 </table>
-              </div>
-
-              <div class="vendor-block">
-                <div class="vendor-title">Vendor 3</div>
-                <table class="nested-table">
-                  <tr>
-                    <td class="label-col">Name</td>
-                    <td><input type="text" placeholder="Third vendor name" /></td>
-                  </tr>
-                  <tr>
-                    <td class="label-col">Address</td>
-                    <td><input type="text" placeholder="Third vendor address" /></td>
-                  </tr>
-                  <tr>
-                    <td class="label-col">Phone</td>
-                    <td><input type="text" placeholder="Third vendor phone" /></td>
-                  </tr>
-                </table>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-      <!-- Items Table -->
-      <table class="items-table" id="itemsTable">
-        <thead>
-          <tr>
-            <th style="width: 24%;">Item Name</th>
-            <th style="width: 9%;">Qty</th>
-            <th style="width: 35%;">Description</th>
-            <th style="width: 15%;" class="num-col">Unit Price</th>
-            <th style="width: 17%;" class="num-col">Total</th>
-            <th class="no-print" style="width: 34px;"></th>
-          </tr>
-        </thead>
-        <tbody id="itemsBody">
-          <tr>
-            <td><input type="text" placeholder="e.g. SpO2 probe" /></td>
-            <td><input type="number" min="1" value="1" class="qty" oninput="calculateTotals()" /></td>
-            <td><input type="text" placeholder="Item specifications" /></td>
-            <td><input type="number" min="0" step="any" placeholder="0.00" class="price num-col" oninput="calculateTotals()" /></td>
-            <td class="num-col row-total">0.00</td>
-            <td class="no-print"><button class="btn btn-danger" onclick="removeRow(this)">X</button></td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr class="total-row">
-            <td colspan="4" class="num-col">Grand Total (UGX)</td>
-            <td class="num-col" id="grandTotal">0.00</td>
-            <td class="no-print"></td>
-          </tr>
-        </tfoot>
-      </table>
-
-      <!-- Special Instructions -->
-      <table>
-        <thead>
-          <tr>
-            <th>SPECIAL INSTRUCTIONS</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="special-box">
-              <textarea placeholder="Enter urgency notes, justification, or delivery instructions..."></textarea>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-      <!-- Approval Signatures -->
-      <table class="info-grid">
-        <thead>
-          <tr>
-            <th>Department Approval:</th>
-            <th>Director's Approval:</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <div class="approval-box">
-                <div class="sig-line">
-                  <span>Signature</span>
-                  <span style="margin-right: 45px;">Date</span>
+              </td>
+              <td>
+                <div class="vendor-block">
+                  <div class="vendor-title">Vendor 1</div>
+                  <table class="nested-table">
+                    <tr>
+                      <td class="label-col">Name</td>
+                      <td><input type="text" placeholder="First vendor name" /></td>
+                    </tr>
+                    <tr>
+                      <td class="label-col">Address</td>
+                      <td><input type="text" placeholder="First vendor address" /></td>
+                    </tr>
+                    <tr>
+                      <td class="label-col">Phone</td>
+                      <td><input type="text" placeholder="First vendor phone" /></td>
+                    </tr>
+                  </table>
                 </div>
-              </div>
-            </td>
-            <td>
-              <div class="approval-box">
-                <div class="sig-line">
-                  <span>Signature</span>
-                  <span style="margin-right: 45px;">Date</span>
-                </div>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
 
-    <div class="footer-note">
-      Purchase Requisition <span id="footerReqNumber"></span>
+                <div class="vendor-block">
+                  <div class="vendor-title">Vendor 2</div>
+                  <table class="nested-table">
+                    <tr>
+                      <td class="label-col">Name</td>
+                      <td><input type="text" placeholder="Second vendor name" /></td>
+                    </tr>
+                    <tr>
+                      <td class="label-col">Address</td>
+                      <td><input type="text" placeholder="Second vendor address" /></td>
+                    </tr>
+                    <tr>
+                      <td class="label-col">Phone</td>
+                      <td><input type="text" placeholder="Second vendor phone" /></td>
+                    </tr>
+                  </table>
+                </div>
+
+                <div class="vendor-block">
+                  <div class="vendor-title">Vendor 3</div>
+                  <table class="nested-table">
+                    <tr>
+                      <td class="label-col">Name</td>
+                      <td><input type="text" placeholder="Third vendor name" /></td>
+                    </tr>
+                    <tr>
+                      <td class="label-col">Address</td>
+                      <td><input type="text" placeholder="Third vendor address" /></td>
+                    </tr>
+                    <tr>
+                      <td class="label-col">Phone</td>
+                      <td><input type="text" placeholder="Third vendor phone" /></td>
+                    </tr>
+                  </table>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Items Table -->
+        <table class="items-table" id="itemsTable">
+          <thead>
+            <tr>
+              <th style="width: 24%;">Item Name</th>
+              <th style="width: 9%;">Qty</th>
+              <th style="width: 35%;">Description</th>
+              <th style="width: 15%;" class="num-col">Unit Price</th>
+              <th style="width: 17%;" class="num-col">Total</th>
+              <th class="no-print" style="width: 34px;"></th>
+            </tr>
+          </thead>
+          <tbody id="itemsBody">
+            <tr>
+              <td><input type="text" placeholder="e.g. SpO2 probe" /></td>
+              <td><input type="number" min="1" value="1" class="qty" oninput="calculateTotals()" /></td>
+              <td><input type="text" placeholder="Item specifications" /></td>
+              <td><input type="number" min="0" step="any" placeholder="0.00" class="price num-col" oninput="calculateTotals()" /></td>
+              <td class="num-col row-total">0.00</td>
+              <td class="no-print"><button class="btn btn-danger" onclick="removeRow(this)">X</button></td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr class="total-row">
+              <td colspan="4" class="num-col">Grand Total (UGX)</td>
+              <td class="num-col" id="grandTotal">0.00</td>
+              <td class="no-print"></td>
+            </tr>
+          </tfoot>
+        </table>
+
+        <!-- Special Instructions -->
+        <table>
+          <thead>
+            <tr>
+              <th>SPECIAL INSTRUCTIONS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="special-box">
+                <textarea id="specialInstructions" placeholder="Enter urgency notes, justification, or delivery instructions..." oninput="autoGrowTextarea(this)"></textarea>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Approval Signatures -->
+        <table class="info-grid">
+          <thead>
+            <tr>
+              <th>Department Approval:</th>
+              <th>Director's Approval:</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="approval-box">
+                  <div class="sig-line">
+                    <span>Signature</span>
+                    <span style="margin-right: 45px;">Date</span>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="approval-box">
+                  <div class="sig-line">
+                    <span>Signature</span>
+                    <span style="margin-right: 45px;">Date</span>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="footer-note">
+        Purchase Requisition <span id="footerReqNumber"></span>
+      </div>
     </div>
   </div>
 
   <script>
+    const PROFILE_STORAGE_KEY = 'nih_req_profile_v1';
+    const DEFAULT_DOC_TITLE = 'Nile International Hospital - Purchase Requisition Form';
     let randomSuffix = Math.floor(1000 + Math.random() * 9000);
     let savedValuesMap = new Map();
+
+    function showToast(msg) {
+      const toast = document.getElementById('statusToast');
+      toast.textContent = msg;
+      clearTimeout(showToast._timer);
+      showToast._timer = setTimeout(() => {
+        toast.textContent = '';
+      }, 3000);
+    }
+
+    function copyFormLink() {
+      const url = window.location.href;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url)
+          .then(() => showToast('Link copied to clipboard'))
+          .catch(() => fallbackCopy(url));
+      } else {
+        fallbackCopy(url);
+      }
+    }
+
+    function fallbackCopy(text) {
+      const temp = document.createElement('input');
+      temp.value = text;
+      document.body.appendChild(temp);
+      temp.select();
+      document.execCommand('copy');
+      document.body.removeChild(temp);
+      showToast('Link copied to clipboard');
+    }
+
+    function saveProfile() {
+      try {
+        const profile = {
+          name: document.getElementById('reqName').value,
+          dept: document.getElementById('reqDept').value,
+          contact: document.getElementById('reqContact').value
+        };
+        localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(profile));
+      } catch (e) {
+        // Ignore storage restrictions
+      }
+    }
+
+    function loadProfile() {
+      try {
+        const raw = localStorage.getItem(PROFILE_STORAGE_KEY);
+        if (!raw) return;
+        const profile = JSON.parse(raw);
+        if (profile.name) document.getElementById('reqName').value = profile.name;
+        if (profile.dept) document.getElementById('reqDept').value = profile.dept;
+        if (profile.contact) document.getElementById('reqContact').value = profile.contact;
+      } catch (e) {
+        // Ignore storage errors
+      }
+    }
+
+    function autoGrowTextarea(el) {
+      el.style.height = '28px';
+      el.style.height = Math.max(28, el.scrollHeight) + 'px';
+    }
 
     function getTodayFormatted() {
       const now = new Date();
@@ -639,19 +788,30 @@
     }
 
     function resetForm() {
-      if (!confirm('Clear all fields and start a new requisition?')) return;
-      document.querySelectorAll('input[type="text"], textarea').forEach(el => el.value = '');
+      if (!confirm('Clear items, vendors, and delivery info for a new requisition? (Your saved profile stays intact.)')) return;
+      const keepIds = new Set(['reqNumber', 'reqDate', 'reqName', 'reqDept', 'reqContact']);
+      document.querySelectorAll('.page input[type="text"], .page input[type="number"], .page textarea').forEach(el => {
+        if (!keepIds.has(el.id)) {
+          el.value = '';
+        }
+      });
       const tbody = document.getElementById('itemsBody');
       while (tbody.rows.length > 1) {
         tbody.deleteRow(1);
       }
       tbody.querySelector('.qty').value = 1;
       tbody.querySelector('.price').value = '';
+      autoGrowTextarea(document.getElementById('specialInstructions'));
       randomSuffix = Math.floor(1000 + Math.random() * 9000);
-      initForm();
+      initForm(false);
     }
 
     function prepareForPrint() {
+      const reqNum = document.getElementById('reqNumber').value.trim();
+      if (reqNum) {
+        document.title = reqNum;
+      }
+
       savedValuesMap.clear();
       const fields = document.querySelectorAll('.page input[type="text"], .page input[type="number"], .page textarea');
       fields.forEach((field, idx) => {
@@ -664,15 +824,18 @@
           }
         }
       });
+      autoGrowTextarea(document.getElementById('specialInstructions'));
     }
 
     function restoreAfterPrint() {
+      document.title = DEFAULT_DOC_TITLE;
       const fields = document.querySelectorAll('.page input[type="text"], .page input[type="number"], .page textarea');
       fields.forEach((field, idx) => {
         if (savedValuesMap.has(idx)) {
           field.value = savedValuesMap.get(idx);
         }
       });
+      autoGrowTextarea(document.getElementById('specialInstructions'));
       calculateTotals();
     }
 
@@ -685,7 +848,10 @@
     window.addEventListener('beforeprint', prepareForPrint);
     window.addEventListener('afterprint', restoreAfterPrint);
 
-    function initForm() {
+    function initForm(shouldLoadProfile = true) {
+      if (shouldLoadProfile) {
+        loadProfile();
+      }
       const todayStr = getTodayFormatted();
       document.getElementById('reqDate').value = todayStr;
       document.getElementById('reqNumber').value = buildReqNumberFromDate(todayStr);
@@ -693,7 +859,7 @@
       calculateTotals();
     }
 
-    document.addEventListener('DOMContentLoaded', initForm);
+    document.addEventListener('DOMContentLoaded', () => initForm(true));
   </script>
 </body>
 </html>
