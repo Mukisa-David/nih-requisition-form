@@ -98,7 +98,6 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      transform-origin: top left;
     }
 
     /* Responsive scaling on smaller screens */
@@ -208,21 +207,6 @@
       color: #000;
     }
 
-    .info-grid > tbody > tr > td {
-      width: 50%;
-      padding: 0;
-    }
-
-    @media screen and (max-width: 720px) {
-      .info-grid > tbody > tr {
-        display: flex;
-        flex-direction: column;
-      }
-      .info-grid > tbody > tr > td {
-        width: 100%;
-      }
-    }
-
     .nested-table {
       margin: 0;
       width: 100%;
@@ -235,29 +219,41 @@
     }
 
     .label-col {
-      width: 39%;
+      width: 28%;
       font-size: 9px;
       font-weight: bold;
       text-transform: uppercase;
       color: #111;
     }
 
-    .vendor-block {
-      border-bottom: 1px dashed #888;
-      padding: 2px 0;
+    /* 3-Column Vendor Row (Stacked below Requisitioner Info) */
+    .vendors-grid > tbody > tr > td {
+      width: 33.33%;
+      padding: 4px 6px;
     }
 
-    .vendor-block:last-child {
-      border-bottom: none;
-      padding-bottom: 1px;
+    @media screen and (max-width: 720px) {
+      .vendors-grid > tbody > tr {
+        display: flex;
+        flex-direction: column;
+      }
+      .vendors-grid > tbody > tr > td {
+        width: 100%;
+      }
     }
 
-    .vendor-title {
-      font-size: 9px;
+    .vendor-label {
+      width: 26%;
+      font-size: 8.8px;
       font-weight: bold;
-      color: var(--primary-teal);
       text-transform: uppercase;
-      margin: 0 6px 1px 6px;
+      color: #111;
+    }
+
+    .vendor-subtable td {
+      border: none;
+      padding: 1.5px 3px;
+      vertical-align: middle;
     }
 
     /* Form Inputs */
@@ -311,8 +307,22 @@
       overflow-y: hidden;
     }
 
+    .approval-grid > tbody > tr > td {
+      width: 50%;
+    }
+
+    @media screen and (max-width: 720px) {
+      .approval-grid > tbody > tr {
+        display: flex;
+        flex-direction: column;
+      }
+      .approval-grid > tbody > tr > td {
+        width: 100%;
+      }
+    }
+
     .approval-box {
-      height: 40px;
+      height: 38px;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
@@ -325,7 +335,7 @@
       padding-top: 2px;
       font-size: 9px;
       font-weight: 600;
-      margin-top: 18px;
+      margin-top: 16px;
     }
 
     .footer-note {
@@ -351,10 +361,14 @@
         width: 100%;
         overflow: visible;
       }
-      .info-grid > tbody > tr {
+      .vendors-grid > tbody > tr,
+      .approval-grid > tbody > tr {
         display: table-row;
       }
-      .info-grid > tbody > tr > td {
+      .vendors-grid > tbody > tr > td {
+        width: 33.33%;
+      }
+      .approval-grid > tbody > tr > td {
         width: 50%;
       }
       .page {
@@ -388,7 +402,7 @@
       th {
         font-size: 10px;
       }
-      .label-col, .vendor-title {
+      .label-col, .vendor-label {
         font-size: 8.8px;
       }
       input[type="text"],
@@ -411,10 +425,10 @@
         min-height: 22px;
       }
       .approval-box {
-        height: 34px;
+        height: 32px;
       }
       .sig-line {
-        margin-top: 14px;
+        margin-top: 12px;
       }
       .footer-note {
         margin-top: 3px;
@@ -440,7 +454,7 @@
   </datalist>
 
   <div class="controls">
-    <button class="btn btn-outline" onclick="copyFormLink()">Copy Link</button>
+    <button class="btn btn-outline" onclick="copyFormLink()">Copy Form Link</button>
     <button class="btn btn-secondary" onclick="addRow()">+ Add Item Row</button>
     <button class="btn btn-secondary" onclick="resetForm()">Reset Form</button>
     <button class="btn btn-primary" onclick="triggerPrint()">Print / Save as PDF</button>
@@ -467,17 +481,16 @@
           </div>
         </div>
 
-        <!-- Top Info Grid -->
-        <table class="info-grid">
+        <!-- 1. Requisitioner Info -->
+        <table>
           <thead>
             <tr>
-              <th>Requisitioner Info:</th>
-              <th>Recommended Vendor Info (Up to 3 Options):</th>
+              <th colspan="2">Requisitioner Info:</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>
+              <td colspan="2" style="padding: 0;">
                 <table class="nested-table">
                   <tr>
                     <td class="label-col">Requisition Number</td>
@@ -505,66 +518,74 @@
                   </tr>
                 </table>
               </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- 2. Recommended Vendor Info (Below Requisitioner Info, 3 Options) -->
+        <table class="vendors-grid">
+          <thead>
+            <tr>
+              <th>Recommended Vendor 1</th>
+              <th>Recommended Vendor 2</th>
+              <th>Recommended Vendor 3</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
               <td>
-                <div class="vendor-block">
-                  <div class="vendor-title">Vendor 1</div>
-                  <table class="nested-table">
-                    <tr>
-                      <td class="label-col">Name</td>
-                      <td><input type="text" placeholder="First vendor name" /></td>
-                    </tr>
-                    <tr>
-                      <td class="label-col">Address</td>
-                      <td><input type="text" placeholder="First vendor address" /></td>
-                    </tr>
-                    <tr>
-                      <td class="label-col">Phone</td>
-                      <td><input type="text" placeholder="First vendor phone" /></td>
-                    </tr>
-                  </table>
-                </div>
-
-                <div class="vendor-block">
-                  <div class="vendor-title">Vendor 2</div>
-                  <table class="nested-table">
-                    <tr>
-                      <td class="label-col">Name</td>
-                      <td><input type="text" placeholder="Second vendor name" /></td>
-                    </tr>
-                    <tr>
-                      <td class="label-col">Address</td>
-                      <td><input type="text" placeholder="Second vendor address" /></td>
-                    </tr>
-                    <tr>
-                      <td class="label-col">Phone</td>
-                      <td><input type="text" placeholder="Second vendor phone" /></td>
-                    </tr>
-                  </table>
-                </div>
-
-                <div class="vendor-block">
-                  <div class="vendor-title">Vendor 3</div>
-                  <table class="nested-table">
-                    <tr>
-                      <td class="label-col">Name</td>
-                      <td><input type="text" placeholder="Third vendor name" /></td>
-                    </tr>
-                    <tr>
-                      <td class="label-col">Address</td>
-                      <td><input type="text" placeholder="Third vendor address" /></td>
-                    </tr>
-                    <tr>
-                      <td class="label-col">Phone</td>
-                      <td><input type="text" placeholder="Third vendor phone" /></td>
-                    </tr>
-                  </table>
-                </div>
+                <table class="vendor-subtable">
+                  <tr>
+                    <td class="vendor-label">Name</td>
+                    <td><input type="text" placeholder="Vendor 1 name" /></td>
+                  </tr>
+                  <tr>
+                    <td class="vendor-label">Address</td>
+                    <td><input type="text" placeholder="Vendor 1 address" /></td>
+                  </tr>
+                  <tr>
+                    <td class="vendor-label">Phone</td>
+                    <td><input type="text" placeholder="Vendor 1 phone" /></td>
+                  </tr>
+                </table>
+              </td>
+              <td>
+                <table class="vendor-subtable">
+                  <tr>
+                    <td class="vendor-label">Name</td>
+                    <td><input type="text" placeholder="Vendor 2 name" /></td>
+                  </tr>
+                  <tr>
+                    <td class="vendor-label">Address</td>
+                    <td><input type="text" placeholder="Vendor 2 address" /></td>
+                  </tr>
+                  <tr>
+                    <td class="vendor-label">Phone</td>
+                    <td><input type="text" placeholder="Vendor 2 phone" /></td>
+                  </tr>
+                </table>
+              </td>
+              <td>
+                <table class="vendor-subtable">
+                  <tr>
+                    <td class="vendor-label">Name</td>
+                    <td><input type="text" placeholder="Vendor 3 name" /></td>
+                  </tr>
+                  <tr>
+                    <td class="vendor-label">Address</td>
+                    <td><input type="text" placeholder="Vendor 3 address" /></td>
+                  </tr>
+                  <tr>
+                    <td class="vendor-label">Phone</td>
+                    <td><input type="text" placeholder="Vendor 3 phone" /></td>
+                  </tr>
+                </table>
               </td>
             </tr>
           </tbody>
         </table>
 
-        <!-- Items Table -->
+        <!-- 3. Items Table -->
         <table class="items-table" id="itemsTable">
           <thead>
             <tr>
@@ -595,7 +616,7 @@
           </tfoot>
         </table>
 
-        <!-- Special Instructions -->
+        <!-- 4. Special Instructions -->
         <table>
           <thead>
             <tr>
@@ -611,8 +632,8 @@
           </tbody>
         </table>
 
-        <!-- Approval Signatures -->
-        <table class="info-grid">
+        <!-- 5. Approval Signatures -->
+        <table class="approval-grid">
           <thead>
             <tr>
               <th>Department Approval:</th>
@@ -663,14 +684,21 @@
       }, 3000);
     }
 
+    function getCleanFormUrl() {
+      const url = new URL(window.location.href);
+      url.search = '';
+      url.hash = '';
+      return url.toString();
+    }
+
     function copyFormLink() {
-      const url = window.location.href;
+      const cleanUrl = getCleanFormUrl();
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(url)
-          .then(() => showToast('Link copied to clipboard'))
-          .catch(() => fallbackCopy(url));
+        navigator.clipboard.writeText(cleanUrl)
+          .then(() => showToast('Clean form link copied'))
+          .catch(() => fallbackCopy(cleanUrl));
       } else {
-        fallbackCopy(url);
+        fallbackCopy(cleanUrl);
       }
     }
 
@@ -681,7 +709,7 @@
       temp.select();
       document.execCommand('copy');
       document.body.removeChild(temp);
-      showToast('Link copied to clipboard');
+      showToast('Clean form link copied');
     }
 
     function saveProfile() {
@@ -692,9 +720,7 @@
           contact: document.getElementById('reqContact').value
         };
         localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(profile));
-      } catch (e) {
-        // Ignore storage restrictions
-      }
+      } catch (e) {}
     }
 
     function loadProfile() {
@@ -705,9 +731,7 @@
         if (profile.name) document.getElementById('reqName').value = profile.name;
         if (profile.dept) document.getElementById('reqDept').value = profile.dept;
         if (profile.contact) document.getElementById('reqContact').value = profile.contact;
-      } catch (e) {
-        // Ignore storage errors
-      }
+      } catch (e) {}
     }
 
     function autoGrowTextarea(el) {
@@ -788,7 +812,7 @@
     }
 
     function resetForm() {
-      if (!confirm('Clear items, vendors, and delivery info for a new requisition? (Your saved profile stays intact.)')) return;
+      if (!confirm('Clear items, vendors, and delivery info for a new requisition?')) return;
       const keepIds = new Set(['reqNumber', 'reqDate', 'reqName', 'reqDept', 'reqContact']);
       document.querySelectorAll('.page input[type="text"], .page input[type="number"], .page textarea').forEach(el => {
         if (!keepIds.has(el.id)) {
